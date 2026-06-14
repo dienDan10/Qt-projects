@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Qt Learning Projects</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <span class="logo-icon">⬡</span>
+        <div>
+          <div class="logo-title">Qt Projects</div>
+          <div class="logo-sub">Learning Roadmap</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="progress-section">
+      <div class="progress-label">
+        <span>Tiến độ</span>
+        <span class="progress-count" id="progressCount">0 / 11</span>
+      </div>
+      <div class="progress-bar-wrap">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </div>
+
+    <nav class="nav-list">
+      <div class="nav-group-label">Beginner</div>
+      <a class="nav-item" data-id="01" onclick="showProject('01')">
+        <span class="nav-check" id="check-01">○</span>
+        <span class="nav-num">01</span>
+        <span class="nav-name">To-do List App</span>
+      </a>
+      <a class="nav-item" data-id="02" onclick="showProject('02')">
+        <span class="nav-check" id="check-02">○</span>
+        <span class="nav-num">02</span>
+        <span class="nav-name">Calculator</span>
+      </a>
+      <a class="nav-item" data-id="03" onclick="showProject('03')">
+        <span class="nav-check" id="check-03">○</span>
+        <span class="nav-num">03</span>
+        <span class="nav-name">File Viewer</span>
+      </a>
+
+      <div class="nav-group-label">Intermediate</div>
+      <a class="nav-item" data-id="04" onclick="showProject('04')">
+        <span class="nav-check" id="check-04">○</span>
+        <span class="nav-num">04</span>
+        <span class="nav-name">System Monitor</span>
+      </a>
+      <a class="nav-item" data-id="05" onclick="showProject('05')">
+        <span class="nav-check" id="check-05">○</span>
+        <span class="nav-num">05</span>
+        <span class="nav-name">REST API Client</span>
+      </a>
+      <a class="nav-item" data-id="06" onclick="showProject('06')">
+        <span class="nav-check" id="check-06">○</span>
+        <span class="nav-num">06</span>
+        <span class="nav-name">TCP Chat App</span>
+      </a>
+      <a class="nav-item" data-id="07" onclick="showProject('07')">
+        <span class="nav-check" id="check-07">○</span>
+        <span class="nav-num">07</span>
+        <span class="nav-name">Contact Manager</span>
+      </a>
+
+      <div class="nav-group-label">Advanced</div>
+      <a class="nav-item" data-id="08" onclick="showProject('08')">
+        <span class="nav-check" id="check-08">○</span>
+        <span class="nav-num">08</span>
+        <span class="nav-name">Headless Qt Service</span>
+      </a>
+      <a class="nav-item" data-id="09" onclick="showProject('09')">
+        <span class="nav-check" id="check-09">○</span>
+        <span class="nav-num">09</span>
+        <span class="nav-name">Custom QML Element</span>
+      </a>
+      <a class="nav-item" data-id="10" onclick="showProject('10')">
+        <span class="nav-check" id="check-10">○</span>
+        <span class="nav-num">10</span>
+        <span class="nav-name">Plugin-based App</span>
+      </a>
+
+      <div class="nav-group-label">Capstone</div>
+      <a class="nav-item" data-id="11" onclick="showProject('11')">
+        <span class="nav-check" id="check-11">○</span>
+        <span class="nav-num">11</span>
+        <span class="nav-name">SCADA / HMI Dashboard</span>
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div id="projectContent"></div>
+  </main>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
