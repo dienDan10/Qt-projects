@@ -62,3 +62,8 @@ QHash<int, QByteArray> TaskModel::roleNames() const
         {TitleRole, "title"},
         {CompletedRole, "completed"}};
 }
+
+FilterType::Type TaskModel::currentFilter() const
+{
+    return m_taskStore->currentFilter();
+}

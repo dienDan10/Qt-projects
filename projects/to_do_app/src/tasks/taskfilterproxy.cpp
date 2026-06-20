@@ -3,6 +3,7 @@
 TaskFilterProxy::TaskFilterProxy(TaskModel *taskModel, QObject *parent)
     : QSortFilterProxyModel{parent}
 {
+    this->m_currentFilter = taskModel->currentFilter();
     this->setSourceModel(taskModel);
     connect(taskModel, &TaskModel::filterChanged, this, [this](FilterType::Type filter)
             {
