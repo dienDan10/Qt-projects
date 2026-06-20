@@ -1,6 +1,7 @@
 pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
+import QtQuick.Controls
 
 Window {
     id: window
@@ -15,6 +16,20 @@ Window {
     ColumnLayout {
         anchors.fill: parent
         spacing: 0
+
+        RowLayout {
+            TextField {
+                id: newTaskField
+                Layout.fillWidth: true
+                placeholderText: "Nhập task mới..."
+                // View KHÔNG gọi taskModel.addTask() - method đó không còn tồn tại nữa.
+                // Mọi ý định thay đổi state đi qua dispatcher.
+                onAccepted: {
+                    dispatcher.addTask(text)
+                    text = ""
+                }
+            }
+        }
 
         FilterBar {
             id: filter_bar

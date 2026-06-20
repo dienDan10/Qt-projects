@@ -6,7 +6,7 @@ pragma ComponentBehavior: Bound
 Rectangle {
     id: root
 
-    required property int id
+    required property string id
     required property string title
     required property bool completed
 
