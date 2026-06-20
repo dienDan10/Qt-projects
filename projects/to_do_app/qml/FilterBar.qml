@@ -1,10 +1,16 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
-import to_do_app
 
 Rectangle {
+    id: root
     height: 44
     color: "transparent"
+
+    required property TaskFilterProxy taskModel
+    required property Dispatcher dispatcher
+
+    readonly property var filterValues: [FilterType.All, FilterType.Active, FilterType.Completed]
 
     RowLayout {
         anchors.centerIn: parent
@@ -14,26 +20,27 @@ Rectangle {
             model: ["All", "Active", "Completed"]
 
             delegate: Rectangle {
+                id: filterButton
                 required property int index
                 required property string modelData
 
                 width: 90
                 height: 32
                 radius: 16
-                color: task_proxy.filter === index ? "#212121" : "transparent"
+                color: root.taskModel.currentFilter === root.filterValues[index] ? "#212121" : "transparent"
                 border.width: 1
-                border.color: task_proxy.filter === index ? "#212121" : "#BDBDBD"
+                border.color: root.taskModel.currentFilter === root.filterValues[index] ? "#212121" : "#BDBDBD"
 
                 Text {
                     anchors.centerIn: parent
                     text: parent.modelData
                     font.pixelSize: 13
-                    color: task_proxy.filter === index ? "white" : "#757575"
+                    color: root.taskModel.currentFilter === root.filterValues[filterButton.index] ? "white" : "#757575"
                 }
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: task_proxy.filter = parent.index
+                    onClicked: root.dispatcher.setFilter(root.filterValues[filterButton.index])
                 }
             }
         }

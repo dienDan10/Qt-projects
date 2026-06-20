@@ -1,16 +1,16 @@
 import QtQuick
 import QtQuick.Layouts
 
+pragma ComponentBehavior: Bound
+
 Rectangle {
     id: root
 
-    required property int index
+    required property int id
     required property string title
-    required property bool done
+    required property bool completed
 
-    // signals
-    signal deleteTaskRequested(int index);
-    signal toggleDoneRequested(int index);
+    required property Dispatcher dispatcher
 
     width: ListView.view.width
     height: 52
@@ -30,20 +30,20 @@ Rectangle {
             height: 20
             radius: 4
             border.width: 1.5
-            border.color: root.done ? "#4CAF50" : "#BDBDBD"
-            color: root.done ? "#4CAF50" : "transparent"
+            border.color: root.completed ? "#4CAF50" : "#BDBDBD"
+            color: root.completed ? "#4CAF50" : "transparent"
 
             Text {
                 anchors.centerIn: parent
                 text: "✓"
                 color: "white"
                 font.pixelSize: 13
-                visible: root.done
+                visible: root.completed
             }
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: root.toggleDoneRequested(root.index)
+                onClicked: root.dispatcher.toggleComplete(root.id)
             }
         }
 
@@ -52,7 +52,7 @@ Rectangle {
             Layout.fillWidth: true
             text: root.title
             font.pixelSize: 14
-            color: root.done ? "#BDBDBD" : "#212121"
+            color: root.completed ? "#BDBDBD" : "#212121"
             elide: Text.ElideRight
         }
 
@@ -74,7 +74,7 @@ Rectangle {
                 id: deleteArea
                 anchors.fill: parent
                 hoverEnabled: true
-                onClicked: root.deleteTaskRequested(root.index)
+                onClicked: root.dispatcher.deleteTask(root.id)
             }
         }
     }

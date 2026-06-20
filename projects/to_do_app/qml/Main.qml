@@ -1,6 +1,6 @@
+pragma ComponentBehavior: Bound
 import QtQuick
 import QtQuick.Layouts
-import to_do_app
 
 Window {
     id: window
@@ -9,18 +9,8 @@ Window {
     visible: true
     title: qsTr("To Do App")
 
-    TaskModel {
-        id: taskModel
-    }
-
-    TaskFilterProxy {
-        id: task_proxy
-        sourceModel: taskModel
-
-        function sourceIndex(proxyIndex) {
-            return mapToSource(index(proxyIndex, 0)).row
-        }
-    }
+    required property TaskFilterProxy taskModel
+    required property Dispatcher dispatcher
 
     ColumnLayout {
         anchors.fill: parent
@@ -29,16 +19,17 @@ Window {
         FilterBar {
             id: filter_bar
             Layout.fillWidth: true
+            taskModel: window.taskModel
+            dispatcher: window.dispatcher
         }
 
         ListView {
             Layout.fillWidth: true
             Layout.fillHeight: true
             clip: true
-            model: task_proxy
-            delegate: TaskDelegate{
-                onDeleteTaskRequested: (index) => taskModel.removeTask(task_proxy.sourceIndex(index))
-                onToggleDoneRequested: (index) => taskModel.setDone(task_proxy.sourceIndex(index))
+            model: window.taskModel
+            delegate: TaskDelegate {
+                dispatcher: window.dispatcher
             }
         }
     }

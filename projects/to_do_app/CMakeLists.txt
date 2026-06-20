@@ -6,12 +6,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 
-qt_standard_project_setup(REQUIRES 6.10)
+qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(appto_do_app
-    src/main.cpp
-    src/Task.h
-    src/taskstorage.h src/taskstorage.cpp
+        src/main.cpp
+        src/tasks/task.h
+        src/flux/action.h
 )
 
 qt_add_qml_module(appto_do_app
@@ -20,10 +20,12 @@ qt_add_qml_module(appto_do_app
         qml/Main.qml
         qml/TaskDelegate.qml
         qml/FilterBar.qml
-
     SOURCES
-        src/taskmodel.h src/taskmodel.cpp
-        src/taskfilterproxy.h src/taskfilterproxy.cpp
+        src/tasks/FilterType.h
+        src/flux/dispatcher.h src/flux/dispatcher.cpp
+        src/tasks/taskstore.h src/tasks/taskstore.cpp
+        src/tasks/taskmodel.h src/tasks/taskmodel.cpp
+        src/tasks/taskfilterproxy.h src/tasks/taskfilterproxy.cpp
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -43,6 +45,8 @@ target_link_libraries(appto_do_app
 
 target_include_directories(appto_do_app PRIVATE
     src/
+    src/tasks
+    src/flux
 )
 
 install(TARGETS appto_do_app
