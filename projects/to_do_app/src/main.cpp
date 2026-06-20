@@ -9,6 +9,11 @@ int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
 
+    Dispatcher dispatcher;
+    TaskStore taskStore(&dispatcher);
+    TaskModel taskModel(&taskStore);
+    TaskFilterProxy taskFilterProxy(&taskModel);
+
     QQmlApplicationEngine engine;
     QObject::connect(
         &engine,
@@ -17,11 +22,6 @@ int main(int argc, char *argv[])
         []()
         { QCoreApplication::exit(-1); },
         Qt::QueuedConnection);
-
-    Dispatcher dispatcher;
-    TaskStore taskStore(&dispatcher);
-    TaskModel taskModel(&taskStore);
-    TaskFilterProxy taskFilterProxy(&taskModel);
 
     engine.setInitialProperties({{"taskModel", QVariant::fromValue(&taskFilterProxy)},
                                  {"dispatcher", QVariant::fromValue(&dispatcher)}});

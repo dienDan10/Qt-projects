@@ -1,15 +1,13 @@
 #include "taskstore.h"
 #include <QUuid>
-#include <algorithm>
 #include <QDebug>
 
 TaskStore::TaskStore(Dispatcher *dispatcher, QObject *parent)
     : QObject{parent}
 {
-    m_tasks = {
-        {"1", "Learn C++", true},
-        {"2", "Learn Qt", false},
-        {"3", "Build a To-Do App", false}};
+    m_storage = new QFile(QCoreApplication::applicationDirPath() + "/data/tasks.json", this);
+    qDebug() << QCoreApplication::applicationDirPath() + "/data/tasks.json";
+    this->load();
     connect(dispatcher, &Dispatcher::actionDispatched, this, &TaskStore::onActionDispatched);
 }
 
@@ -64,7 +62,6 @@ void TaskStore::handleDeleteTask(const DeleteTaskPayload &payload)
 
 void TaskStore::handleSetFilter(const SetFilterPayload &payload)
 {
-    qDebug() << "Changing filter to" << payload.filter;
     if (m_filter == payload.filter)
         return;
 
@@ -85,7 +82,70 @@ int TaskStore::indexOfTaskId(const QString &taskId) const
     return -1; // not found
 }
 
+void TaskStore::load()
+{
+    if (!m_storage->open(QIODevice::ReadOnly))
+    {
+        qWarning() << "Could not open tasks.json for reading:" << m_storage->errorString();
+        return;
+    }
+
+    QByteArray data = m_storage->readAll();
+    if (data.isEmpty())
+    {
+        qDebug() << "No existing tasks found.";
+        return;
+    }
+
+    QJsonDocument doc = QJsonDocument::fromJson(data);
+    if (doc.isNull() || !doc.isObject())
+    {
+        qWarning() << "Invalid JSON in tasks.json";
+        return;
+    }
+
+    QJsonObject rootObj = doc.object();
+    QJsonArray tasksArray = rootObj.value("tasks").toArray();
+
+    for (const QJsonValue &taskValue : tasksArray)
+    {
+        if (!taskValue.isObject())
+            continue;
+
+        QJsonObject taskObj = taskValue.toObject();
+        Task task;
+        task.id = taskObj.value("id").toString();
+        task.text = taskObj.value("text").toString();
+        task.completed = taskObj.value("completed").toBool();
+
+        m_tasks.push_back(task);
+    }
+
+    m_storage->close();
+}
+
 void TaskStore::persist()
 {
-    // TODO: Implement task persistence (save to JSON)
+    if (!m_storage->open(QIODevice::WriteOnly | QIODevice::Truncate))
+    {
+        qWarning() << "Could not open tasks.json for reading:" << m_storage->errorString();
+        return;
+    }
+
+    QJsonObject tasks;
+    QJsonArray arr;
+    for (const Task &task : m_tasks)
+    {
+        QJsonObject taskObj;
+        taskObj.insert("id", task.id);
+        taskObj.insert("text", task.text);
+        taskObj.insert("completed", task.completed);
+
+        arr.push_back(taskObj);
+    }
+
+    tasks.insert("tasks", arr);
+
+    m_storage->write(QJsonDocument(tasks).toJson(QJsonDocument::Indented));
+    m_storage->close();
 }

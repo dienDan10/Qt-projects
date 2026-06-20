@@ -1,18 +1,24 @@
 #pragma once
 
 #include <QObject>
+#include <QString>
+#include <QCoreApplication>
 #include "../flux/dispatcher.h"
 #include "FilterType.h"
 #include "task.h"
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
 
-class TaskStore: public QObject
+class TaskStore : public QObject
 {
     Q_OBJECT
 
 public:
-    explicit TaskStore(Dispatcher* dispatcher,QObject *parent = nullptr);
+    explicit TaskStore(Dispatcher *dispatcher, QObject *parent = nullptr);
 
-    std::vector<Task>& tasks() { return m_tasks; }
+    std::vector<Task> &tasks() { return m_tasks; }
     FilterType::Type currentFilter() const { return m_filter; }
 
 signals:
@@ -22,7 +28,7 @@ signals:
     void filterChanged(FilterType::Type filter);
 
 private slots:
-    void onActionDispatched(const Action& action);
+    void onActionDispatched(const Action &action);
 
 private:
     void handleAddTask(const AddTaskPayload &payload);
@@ -31,11 +37,13 @@ private:
     void handleSetFilter(const SetFilterPayload &payload);
 
     int indexOfTaskId(const QString &taskId) const;
- 
-    // TODO: gọi vào TaskStorage (load/save JSON) hiện có của bạn ở đây.
+
+    // TODO: gọi vào TaskStorage (load/save JSON)
+    void load();
     void persist();
 
 private:
     std::vector<Task> m_tasks;
     FilterType::Type m_filter = FilterType::All;
+    QFile *m_storage = nullptr;
 };
