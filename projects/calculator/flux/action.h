@@ -2,6 +2,7 @@
 #define ACTION_H
 
 #include <QVariant>
+#include <typeindex>
 
 template <typename T, bool B = std::is_enum<T>::value>
 struct is_scoped_enum : std::false_type
@@ -20,11 +21,11 @@ class Action final
 public:
     template <class ScopedEnum, class = typename std::enable_if<is_scoped_enum<ScopedEnum>::value>::type>
     Action(ScopedEnum type, QVariant &payload, bool error = false)
-        : type_(static_cast<int>(type)), payload_(payload), error_(error) {}
+        : type_(static_cast<int>(type)), payload_(payload), typeIndex_(typeid(ScopedEnum)), error_(error) {}
 
     template <class ScopedEnum, class = typename std::enable_if<is_scoped_enum<ScopedEnum>::value>::type>
     Action(ScopedEnum type, QVariant &&payload = QVariant(), bool error = false)
-        : type_(static_cast<int>(type)), payload_(std::move(payload)), error_(error) {}
+        : type_(static_cast<int>(type)), payload_(std::move(payload)), typeIndex_(typeid(ScopedEnum)), error_(error) {}
 
     Action(const Action &) = default;            // copy constructor
     Action(Action &&) = default;                 // move constructor
@@ -37,6 +38,8 @@ public:
     {
         return static_cast<ScopedEnum>(type_);
     }
+
+    std::type_index typeIndex() const { return typeIndex_; }
 
     template <class T>
     T getPayload() const
@@ -52,6 +55,7 @@ public:
 private:
     int type_;
     QVariant payload_;
+    std::type_index typeIndex_;
     bool error_;
 };
 

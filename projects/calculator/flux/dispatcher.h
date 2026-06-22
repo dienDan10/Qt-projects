@@ -10,7 +10,8 @@
 #define DISPATCHER_H
 
 #include <QObject>
-#include <QVector>
+#include <QList>
+#include <QMap>
 #include <QSharedPointer>
 #include "action.h"
 #include "store.h"
@@ -27,16 +28,17 @@ public:
         return self;
     }
 
-    template <class... Args>
-    void registerMiddleWare(Args &&...args)
+    void registerMiddleWare(QSharedPointer<Middleware> middleware)
     {
-        middlewares.push_back(QSharedPointer<Middleware>::create(std::forward<Args>(args)...));
+        middlewares.push_back(std::move(middleware));
     }
 
-    template <class... Args>
-    void registerStore(Args &&...args)
-    {
-        stores.push_back(QSharedPointer<Store>::create(std::forward<Args>(args)...));
+    template<class ScopedEnum>
+    void registerStore(QSharedPointer<Store> store) {
+        auto it = stores.find(typeid(ScopedEnum));
+        if (it == stores.end()) return;
+
+        stores.insert(typeid(ScopedEnum), std::move(store));
     }
 
 signals:
@@ -57,21 +59,20 @@ private:
 private:
     void onActionDispatched(QSharedPointer<Action> action)
     {
-        for (const auto &middleware : middlewares)
-        {
-            action = middleware->process(action);
+        for (int i = 0; i < middlewares.size(); i++) {
+            action = middlewares.at(i)->process(action);
             if (!action) return;
         }
 
-        for (const auto &store : stores)
-        {
-            store->process(action);
+        auto it = stores.find(action->typeIndex());
+        if (it != stores.end()) {
+            it.value()->process(action);
         }
     }
 
 private:
-    QVector<QSharedPointer<Middleware>> middlewares;
-    QVector<QSharedPointer<Store>> stores;
+    QList<QSharedPointer<Middleware>> middlewares;
+    QMap<std::type_index, QSharedPointer<Store>> stores;
 };
 
 #endif // DISPATCHER_H
