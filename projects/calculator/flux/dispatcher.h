@@ -11,7 +11,7 @@
 
 #include <QObject>
 #include <QList>
-#include <QMap>
+#include <QHash>
 #include <QSharedPointer>
 #include "action.h"
 #include "store.h"
@@ -72,7 +72,7 @@ private:
 
 private:
     QList<QSharedPointer<Middleware>> middlewares;
-    QMap<std::type_index, QSharedPointer<Store>> stores;
+    QHash<std::type_index, QSharedPointer<Store>> stores;
 };
 
 #endif // DISPATCHER_H

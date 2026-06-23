@@ -21,15 +21,17 @@ qt_add_executable(appcalculator
     flux/middleware.h flux/store.h
 )
 
+set_source_files_properties(qml/Config.qml
+    PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 qt_add_qml_module(appcalculator
     URI calculator
     QML_FILES
         qml/Main.qml
-        qml/Display.qml
-        qml/NumberPad.qml
-        qml/CalculatorButton.qml
-        qml/OperatorButton.qml
-        qml/DigitButton.qml
+        qml/NumberBtn.qml
+        qml/OperatorBtn.qml
+        qml/Config.qml
+        qml/Keyboard.qml
+        qml/BackspaceBtn.qml
         
     RESOURCES
         assets/images/backspace.svg
