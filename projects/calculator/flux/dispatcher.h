@@ -36,7 +36,7 @@ public:
     template<class ScopedEnum>
     void registerStore(QSharedPointer<Store> store) {
         auto it = stores.find(typeid(ScopedEnum));
-        if (it == stores.end()) return;
+        if (it != stores.end()) return;
 
         stores.insert(typeid(ScopedEnum), std::move(store));
     }

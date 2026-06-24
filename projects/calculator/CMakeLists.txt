@@ -16,9 +16,9 @@ endif()
 
 qt_add_executable(appcalculator
     main.cpp
-    src/calculatorengine.h src/calculatorengine.cpp
     flux/action.h flux/dispatcher.h
     flux/middleware.h flux/store.h
+    src/calculatoraction.h
 )
 
 set_source_files_properties(qml/Config.qml
@@ -32,6 +32,10 @@ qt_add_qml_module(appcalculator
         qml/Config.qml
         qml/Keyboard.qml
         qml/BackspaceBtn.qml
+
+    SOURCES
+        src/calculatorengine.h src/calculatorengine.cpp
+        src/calculatoractionprovider.h src/calculatoractionprovider.cpp
         
     RESOURCES
         assets/images/backspace.svg

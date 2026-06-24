@@ -1,28 +1,37 @@
 import QtQuick
 import QtQuick.Layouts
+import calculator
 
 GridLayout {
+    id: root
     columns: 4
     columnSpacing: 10
     rowSpacing: 10
+
+    function onNumberBtnPressed(text) {
+        CalculatorActionProvider.operandPress(text);
+    }
 
     // Row 1: 7 8 9 /
     NumberBtn {
         text: "7"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onNumberBtnPressed(text)
     }
 
     NumberBtn {
         text: "8"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onNumberBtnPressed(text)
     }
 
     NumberBtn {
         text: "9"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onNumberBtnPressed(text)
     }
 
     OperatorBtn {
@@ -36,18 +45,21 @@ GridLayout {
         text: "4"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onNumberBtnPressed(text)
     }
 
     NumberBtn {
         text: "5"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onNumberBtnPressed(text)
     }
 
     NumberBtn {
         text: "6"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onNumberBtnPressed(text)
     }
 
     OperatorBtn {
@@ -61,18 +73,21 @@ GridLayout {
         text: "1"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onNumberBtnPressed(text)
     }
 
     NumberBtn {
         text: "2"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onNumberBtnPressed(text)
     }
 
     NumberBtn {
         text: "3"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onNumberBtnPressed(text)
     }
 
     OperatorBtn {
@@ -92,6 +107,7 @@ GridLayout {
         text: "0"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onNumberBtnPressed(text)
     }
 
     NumberBtn {
