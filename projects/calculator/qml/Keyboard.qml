@@ -12,6 +12,10 @@ GridLayout {
         CalculatorActionProvider.operandPress(text);
     }
 
+    function onOperatorBtnPressed(text) {
+        CalculatorActionProvider.operatorPress(text);
+    }
+
     // Row 1: 7 8 9 /
     NumberBtn {
         text: "7"
@@ -38,6 +42,7 @@ GridLayout {
         text: "/"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onOperatorBtnPressed(text)
     }
 
     // Row 2: 4 5 6 x
@@ -66,6 +71,7 @@ GridLayout {
         text: "x"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onOperatorBtnPressed(text)
     }
 
     // Row 3: 1 2 3 -
@@ -94,6 +100,7 @@ GridLayout {
         text: "-"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onOperatorBtnPressed(text)
     }
 
     // Row 4: +- 0 . +
@@ -120,6 +127,7 @@ GridLayout {
         text: "+"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: (text) => root.onOperatorBtnPressed(text)
     }
 
     // Row 5: backspace AC =
@@ -127,12 +135,14 @@ GridLayout {
         text: "Backspace"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: CalculatorActionProvider.backspacePress()
     }
 
     OperatorBtn {
         text: "AC"
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: CalculatorActionProvider.acPress()
     }
 
     OperatorBtn {
@@ -140,5 +150,6 @@ GridLayout {
         Layout.columnSpan: 2
         Layout.fillWidth: true
         Layout.fillHeight: true
+        onClicked: CalculatorActionProvider.equalPress()
     }
 }

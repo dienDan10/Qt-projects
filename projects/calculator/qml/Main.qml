@@ -1,7 +1,7 @@
 import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
-import calculator
+import calculator.singleton 1.0
 
 
 ApplicationWindow {
@@ -39,7 +39,7 @@ ApplicationWindow {
                     rightMargin: 10
                 }
 
-                text: "30 + 61"
+                text: CalculatorEngine.expression
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment: Text.AlignVCenter
             }
@@ -59,7 +59,7 @@ ApplicationWindow {
                     rightMargin: 10
                 }
 
-                text: "91"
+                text: CalculatorEngine.result
                 horizontalAlignment: Text.AlignRight
                 verticalAlignment: Text.AlignVCenter
             }

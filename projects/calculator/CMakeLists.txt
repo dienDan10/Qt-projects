@@ -19,6 +19,7 @@ qt_add_executable(appcalculator
     flux/action.h flux/dispatcher.h
     flux/middleware.h flux/store.h
     src/calculatoraction.h
+    src/calculatorengine.h src/calculatorengine.cpp
 )
 
 set_source_files_properties(qml/Config.qml
@@ -34,7 +35,6 @@ qt_add_qml_module(appcalculator
         qml/BackspaceBtn.qml
 
     SOURCES
-        src/calculatorengine.h src/calculatorengine.cpp
         src/calculatoractionprovider.h src/calculatoractionprovider.cpp
         
     RESOURCES

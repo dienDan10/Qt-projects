@@ -8,17 +8,16 @@
 void registerMetaData() {
     auto calcEngine = QSharedPointer<CalculatorEngine>::create();
     Dispatcher::instance().registerStore<CalculatorAction>(calcEngine);
-    qmlRegisterSingletonInstance<CalculatorEngine>("calculator", 1, 0, "CalculatorEngine", calcEngine.get());
+    qmlRegisterSingletonInstance<CalculatorEngine>("calculator.singleton", 1, 0, "CalculatorEngine", calcEngine.get());
 }
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    QQmlApplicationEngine engine;
 
     // register qml types
-    //registerMetaData();
-
-    QQmlApplicationEngine engine;
+    registerMetaData();
 
     QObject::connect(
         &engine,

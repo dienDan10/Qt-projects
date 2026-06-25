@@ -22,6 +22,10 @@ public:
     explicit CalculatorActionProvider(QObject* parent = nullptr);
 
     Q_INVOKABLE void operandPress(QString numStr);
+    Q_INVOKABLE void operatorPress(QString operatorStr);
+    Q_INVOKABLE void equalPress();
+    Q_INVOKABLE void backspacePress();
+    Q_INVOKABLE void acPress();
 };
 
 #endif // CALCULATORACTIONPROVIDER_H

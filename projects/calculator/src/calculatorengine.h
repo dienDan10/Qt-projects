@@ -19,8 +19,12 @@ public:
     QString result();
 
 private:
-    QString constructExpression();
-    QString constructResult();
+    void constructExpression();
+    void handleOperandPressed(const QString& numStr);
+    void handleOperatorPressed(const QString& operatorStr);
+    void handleEqualPressed();
+    void handleACPressed();
+    void handleBackspacePressed();
 
 signals:
     void expressionChanged();
@@ -31,7 +35,8 @@ private:
         START,      // chưa có gì cả
         OPERAND_1,  // nhập số đầu tiên và sau khi ấn =, kết quả sẽ được lưu lại, state trở lại đây
         OPERATOR,   // nhập operator
-        OPERAND_2   // nhập số thứ 2
+        OPERAND_2,   // nhập số thứ 2
+        STOP
     };
 
 private:
@@ -39,9 +44,12 @@ private:
     QString m_operand_1{};
     QString m_operand_2{};
     QString m_operator{};
-    const static int OPERAND_MAX_LENGTH = 5;
-    const static int RESULT_MAX_LENGTH = 10;
-
+    double m_result {};
+    QString m_expression {};
+    bool hasDecimal = false;
+    bool m_error = false;
+    const static int OPERAND_MAX_LENGTH = 8;
+    const static int RESULT_MAX_LENGTH = 15;
 };
 
 #endif // CALCULATORENGINE_H

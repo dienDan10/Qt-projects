@@ -11,7 +11,10 @@
 
 enum class CalculatorAction {
     PRESS_OPERAND,
-    PRESS_OPERATOR
+    PRESS_OPERATOR,
+    PRESS_EQUAL,
+    PRESS_AC,
+    PRESS_BACKSPACE
 };
 
 #endif // CALCULATORACTION_H
