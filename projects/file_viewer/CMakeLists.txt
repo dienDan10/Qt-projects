@@ -18,6 +18,10 @@ qt_add_executable(appfile_viewer
     main.cpp
     flux/action.h flux/dispatcher.h
     flux/middleware.h flux/store.h
+    src/fileparser.h src/fileparser.cpp
+    src/itemdata.h src/itemdata.cpp
+    src/itemstore.h src/itemstore.cpp
+    src/itemmodel.h src/itemmodel.cpp
 )
 
 qt_add_qml_module(appfile_viewer
