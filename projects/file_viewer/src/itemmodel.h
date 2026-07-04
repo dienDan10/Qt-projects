@@ -9,6 +9,7 @@
 #ifndef ITEMMODEL_H
 #define ITEMMODEL_H
 #include <QAbstractTableModel>
+#include <QSharedPointer>
 #include "itemstore.h"
 class ItemModel : public QAbstractTableModel
 {
@@ -29,8 +30,11 @@ public:
         Qt::Orientation orientation,
         int role = Qt::DisplayRole) const override;
 
+private slots:
+    void onModelReset();
+
 private:
-    ItemStore* m_itemStore = nullptr;
+    QSharedPointer<ItemStore> m_itemStore = nullptr;
 };
 
 #endif // ITEMMODEL_H

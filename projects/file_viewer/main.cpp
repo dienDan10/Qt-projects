@@ -8,12 +8,24 @@
  */
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include "itemviewmodel.h"
+#include "actionprovider.h"
+
+void registerQmlType() {
+    ItemViewModel* viewModel = new ItemViewModel();
+    qmlRegisterSingletonInstance<ItemViewModel>("fileviewer.singleton", 1, 0, "ItemModel",viewModel);
+
+    ActionProvider* actionProvider = new ActionProvider();
+    qmlRegisterSingletonInstance<ActionProvider>("fileviewer.singleton", 1, 0, "ActionProvider",actionProvider);
+}
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
+
+    registerQmlType();
+
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreationFailed,

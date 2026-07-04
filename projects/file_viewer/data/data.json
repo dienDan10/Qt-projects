@@ -1,0 +1,95 @@
+{
+  "company": "Demo Technology Co., Ltd.",
+  "generatedAt": "2026-07-04T22:30:00",
+  "employees": [
+    {
+      "id": 1,
+      "name": "Nguyen Van An",
+      "department": "Engineering",
+      "age": 28,
+      "salary": 1800,
+      "city": "Hanoi",
+      "joinDate": "2021-03-15",
+      "status": "Active",
+      "skills": ["C++", "Qt", "QML"],
+      "projects": [
+        {
+          "name": "Calculator",
+          "durationMonths": 6
+        },
+        {
+          "name": "Inventory",
+          "durationMonths": 12
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Tran Thi Bich",
+      "department": "Marketing",
+      "age": 31,
+      "salary": 1650,
+      "city": "Da Nang",
+      "joinDate": "2020-11-20",
+      "status": "Active",
+      "skills": ["SEO", "Google Ads", "Analytics"],
+      "projects": [
+        {
+          "name": "Summer Campaign",
+          "durationMonths": 4
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Le Minh Duc",
+      "department": "Finance",
+      "age": 42,
+      "salary": 2400,
+      "city": "HCMC",
+      "joinDate": "2018-09-05",
+      "status": "Active",
+      "skills": ["Excel", "SAP", "Power BI"],
+      "projects": [
+        {
+          "name": "ERP Migration",
+          "durationMonths": 18
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Pham Quoc Huy",
+      "department": "Engineering",
+      "age": 26,
+      "salary": 1750,
+      "city": "Hanoi",
+      "joinDate": "2023-01-18",
+      "status": "Active",
+      "skills": ["Qt", "CMake", "Git"],
+      "projects": [
+        {
+          "name": "Device Manager",
+          "durationMonths": 8
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Hoang Thi Lan",
+      "department": "HR",
+      "age": 35,
+      "salary": 1900,
+      "city": "Hai Phong",
+      "joinDate": "2019-06-12",
+      "status": "Active",
+      "skills": ["Recruitment", "Training"],
+      "projects": [
+        {
+          "name": "Hiring Platform",
+          "durationMonths": 10
+        }
+      ]
+    }
+  ]
+}

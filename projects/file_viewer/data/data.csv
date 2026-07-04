@@ -1,0 +1,31 @@
+ID,Name,Department,Age,Salary,City,JoinDate,Status
+1,Nguyen Van An,Engineering,28,1800,Hanoi,2021-03-15,Active
+2,Tran Thi Bich,Marketing,31,1650,Da Nang,2020-11-20,Active
+3,Le Minh Duc,Finance,42,2400,HCMC,2018-09-05,Active
+4,Pham Quoc Huy,Engineering,26,1750,Hanoi,2023-01-18,Active
+5,Hoang Thi Lan,HR,35,1900,Hai Phong,2019-06-12,Active
+6,Vo Anh Tuan,Sales,30,1700,Can Tho,2022-04-08,Inactive
+7,Dang Minh Khoa,Engineering,29,2100,HCMC,2021-07-19,Active
+8,Nguyen Thi Hoa,Finance,38,2600,Hanoi,2017-02-11,Active
+9,Bui Thanh Son,Marketing,27,1600,Da Nang,2022-09-01,Active
+10,Tran Gia Bao,Engineering,25,1550,HCMC,2024-01-15,Probation
+11,Pham Thi Yen,HR,33,1850,Hanoi,2020-05-09,Active
+12,Le Quoc Viet,Engineering,40,2800,HCMC,2016-12-01,Active
+13,Do Minh Chau,Sales,29,1750,Hai Phong,2021-10-03,Active
+14,Nguyen Duc Long,Finance,45,3200,Hanoi,2014-08-25,Active
+15,Vu Thi Huong,Marketing,32,1800,HCMC,2019-03-30,Inactive
+16,Tran Anh Kiet,Engineering,27,1850,Can Tho,2022-06-17,Active
+17,Hoang Minh Tri,Engineering,36,2550,Hanoi,2018-01-21,Active
+18,Le Thi Mai,HR,34,1950,Da Nang,2020-10-28,Active
+19,Nguyen Quang Hieu,Finance,41,2950,HCMC,2015-11-11,Active
+20,Pham Gia Han,Sales,24,1500,Hanoi,2024-02-01,Probation
+21,Do Thi Kim,Marketing,29,1720,HCMC,2022-08-08,Active
+22,Bui Van Nam,Engineering,31,2200,Hanoi,2020-04-13,Active
+23,Tran Minh Phuc,Engineering,37,2700,Hai Phong,2017-09-18,Active
+24,Nguyen Thi Nga,Finance,39,2850,Da Nang,2016-05-22,Active
+25,Le Thanh Tung,Sales,28,1680,HCMC,2021-12-09,Inactive
+26,Pham Minh Quan,Engineering,26,1780,Hanoi,2023-04-15,Active
+27,Hoang Thi Oanh,HR,30,1820,Can Tho,2021-02-14,Active
+28,Dang Quoc Bao,Marketing,35,2050,HCMC,2019-01-07,Active
+29,Vo Minh Duc,Engineering,33,2300,Hanoi,2018-10-29,Active
+30,Tran Thu Ha,Finance,44,3100,HCMC,2013-07-12,Active

@@ -10,9 +10,11 @@
 #define ITEMSTORE_H
 
 #include <QObject>
+#include <QUrl>
 #include "itemdata.h"
+#include "flux/store.h"
 
-class ItemStore : public QObject
+class ItemStore : public QObject, public Store
 {
     Q_OBJECT
 public:
@@ -23,7 +25,14 @@ public:
     QStringList headers();
     QVariantList rows();
 
+
+    void process(const QSharedPointer<Action> &action) override;
+
+private:
+    void handleLoadFile(const QUrl& url);
+
 signals:
+    void modelReset();
 
 private:
     ItemData m_itemData;
