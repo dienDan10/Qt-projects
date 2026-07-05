@@ -15,6 +15,14 @@ ItemViewModel::ItemViewModel(QObject *parent) : QSortFilterProxyModel(parent)
     auto itemModel = new ItemModel();
     this->setSourceModel(itemModel);
     this->connect(itemModel, &ItemModel::signalSortColumn, this, &ItemViewModel::handleColumnSort);
+
+    // set timer
+    m_debounceTimer = new QTimer(this);
+    m_debounceTimer->setInterval(300);
+    m_debounceTimer->setSingleShot(true);
+    this->connect(m_debounceTimer, &QTimer::timeout, this, [this]() {
+        this->invalidateFilter();
+    });
 }
 
 QString ItemViewModel::searchText()
@@ -27,7 +35,7 @@ void ItemViewModel::setSearchText(const QString &text)
     m_searchText = text.trimmed();
     emit searchTextChanged();
 
-    invalidateFilter();
+    m_debounceTimer->start();
 }
 
 void ItemViewModel::handleColumnSort(const int columnIndex)

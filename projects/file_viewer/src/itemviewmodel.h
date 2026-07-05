@@ -10,6 +10,7 @@
 #define ITEMVIEWMODEL_H
 #include <QSortFilterProxyModel>
 #include <QtQml/qqmlregistration.h>
+#include <QTimer>
 
 class ItemViewModel : public QSortFilterProxyModel
 {
@@ -47,6 +48,7 @@ private:
     int m_sortColumn = -1;
     SortState m_sortState = SortState::NONE;
     QString m_searchText{};
+    QTimer* m_debounceTimer;
 };
 
 #endif // ITEMVIEWMODEL_H
