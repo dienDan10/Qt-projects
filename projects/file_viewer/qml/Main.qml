@@ -21,12 +21,27 @@ ApplicationWindow {
         // Button open file Dialog
         OpenFileButton {
             id: btn_open_file
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
             Layout.margins: 10
             onFileSelected: (fileUrl) => {
                 ActionProvider.loadFile(fileUrl)
             }
         }
+
+        // filter text TextField
+        SearchBar {
+            id: search
+            Layout.margins: 5
+            Layout.alignment: Qt.AlignVCenter | Qt.AlignLeft
+            Layout.preferredWidth: 200
+
+            text: ItemModel.searchText
+
+            onSearchTextChanged: (text) => {
+                ItemModel.searchText = text;
+            }
+        }
+
         // Item table
         ItemTable {
             id: item_table

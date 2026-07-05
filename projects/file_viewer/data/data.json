@@ -1,95 +1,302 @@
-{
-  "company": "Demo Technology Co., Ltd.",
-  "generatedAt": "2026-07-04T22:30:00",
-  "employees": [
-    {
-      "id": 1,
-      "name": "Nguyen Van An",
-      "department": "Engineering",
-      "age": 28,
-      "salary": 1800,
-      "city": "Hanoi",
-      "joinDate": "2021-03-15",
-      "status": "Active",
-      "skills": ["C++", "Qt", "QML"],
-      "projects": [
-        {
-          "name": "Calculator",
-          "durationMonths": 6
-        },
-        {
-          "name": "Inventory",
-          "durationMonths": 12
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "name": "Tran Thi Bich",
-      "department": "Marketing",
-      "age": 31,
-      "salary": 1650,
-      "city": "Da Nang",
-      "joinDate": "2020-11-20",
-      "status": "Active",
-      "skills": ["SEO", "Google Ads", "Analytics"],
-      "projects": [
-        {
-          "name": "Summer Campaign",
-          "durationMonths": 4
-        }
-      ]
-    },
-    {
-      "id": 3,
-      "name": "Le Minh Duc",
-      "department": "Finance",
-      "age": 42,
-      "salary": 2400,
-      "city": "HCMC",
-      "joinDate": "2018-09-05",
-      "status": "Active",
-      "skills": ["Excel", "SAP", "Power BI"],
-      "projects": [
-        {
-          "name": "ERP Migration",
-          "durationMonths": 18
-        }
-      ]
-    },
-    {
-      "id": 4,
-      "name": "Pham Quoc Huy",
-      "department": "Engineering",
-      "age": 26,
-      "salary": 1750,
-      "city": "Hanoi",
-      "joinDate": "2023-01-18",
-      "status": "Active",
-      "skills": ["Qt", "CMake", "Git"],
-      "projects": [
-        {
-          "name": "Device Manager",
-          "durationMonths": 8
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "Hoang Thi Lan",
-      "department": "HR",
-      "age": 35,
-      "salary": 1900,
-      "city": "Hai Phong",
-      "joinDate": "2019-06-12",
-      "status": "Active",
-      "skills": ["Recruitment", "Training"],
-      "projects": [
-        {
-          "name": "Hiring Platform",
-          "durationMonths": 10
-        }
-      ]
-    }
-  ]
-}
+[
+  {
+    "id": 1,
+    "name": "Nguyen Van An",
+    "department": "Engineering",
+    "age": 28,
+    "salary": 1800,
+    "city": "Hanoi",
+    "joinDate": "2021-03-15",
+    "status": "Active"
+  },
+  {
+    "id": 2,
+    "name": "Tran Thi Bich",
+    "department": "Marketing",
+    "age": 31,
+    "salary": 1650,
+    "city": "Da Nang",
+    "joinDate": "2020-11-20",
+    "status": "Active"
+  },
+  {
+    "id": 3,
+    "name": "Le Minh Duc",
+    "department": "Finance",
+    "age": 42,
+    "salary": 2400,
+    "city": "HCMC",
+    "joinDate": "2018-09-05",
+    "status": "Active"
+  },
+  {
+    "id": 4,
+    "name": "Pham Quoc Huy",
+    "department": "Engineering",
+    "age": 26,
+    "salary": 1750,
+    "city": "Hanoi",
+    "joinDate": "2023-01-18",
+    "status": "Active"
+  },
+  {
+    "id": 5,
+    "name": "Hoang Thi Lan",
+    "department": "HR",
+    "age": 35,
+    "salary": 1900,
+    "city": "Hai Phong",
+    "joinDate": "2019-06-12",
+    "status": "Active"
+  },
+  {
+    "id": 6,
+    "name": "Vo Anh Tuan",
+    "department": "Sales",
+    "age": 30,
+    "salary": 1700,
+    "city": "Can Tho",
+    "joinDate": "2022-04-08",
+    "status": "Inactive"
+  },
+  {
+    "id": 7,
+    "name": "Dang Minh Khoa",
+    "department": "Engineering",
+    "age": 29,
+    "salary": 2100,
+    "city": "HCMC",
+    "joinDate": "2021-07-19",
+    "status": "Active"
+  },
+  {
+    "id": 8,
+    "name": "Nguyen Thi Hoa",
+    "department": "Finance",
+    "age": 38,
+    "salary": 2600,
+    "city": "Hanoi",
+    "joinDate": "2017-02-11",
+    "status": "Active"
+  },
+  {
+    "id": 9,
+    "name": "Bui Thanh Son",
+    "department": "Marketing",
+    "age": 27,
+    "salary": 1600,
+    "city": "Da Nang",
+    "joinDate": "2022-09-01",
+    "status": "Active"
+  },
+  {
+    "id": 10,
+    "name": "Tran Gia Bao",
+    "department": "Engineering",
+    "age": 25,
+    "salary": 1550,
+    "city": "HCMC",
+    "joinDate": "2024-01-15",
+    "status": "Probation"
+  },
+  {
+    "id": 11,
+    "name": "Pham Thi Yen",
+    "department": "HR",
+    "age": 33,
+    "salary": 1850,
+    "city": "Hanoi",
+    "joinDate": "2020-05-09",
+    "status": "Active"
+  },
+  {
+    "id": 12,
+    "name": "Le Quoc Viet",
+    "department": "Engineering",
+    "age": 40,
+    "salary": 2800,
+    "city": "HCMC",
+    "joinDate": "2016-12-01",
+    "status": "Active"
+  },
+  {
+    "id": 13,
+    "name": "Do Minh Chau",
+    "department": "Sales",
+    "age": 29,
+    "salary": 1750,
+    "city": "Hai Phong",
+    "joinDate": "2021-10-03",
+    "status": "Active"
+  },
+  {
+    "id": 14,
+    "name": "Nguyen Duc Long",
+    "department": "Finance",
+    "age": 45,
+    "salary": 3200,
+    "city": "Hanoi",
+    "joinDate": "2014-08-25",
+    "status": "Active"
+  },
+  {
+    "id": 15,
+    "name": "Vu Thi Huong",
+    "department": "Marketing",
+    "age": 32,
+    "salary": 1800,
+    "city": "HCMC",
+    "joinDate": "2019-03-30",
+    "status": "Inactive"
+  },
+  {
+    "id": 16,
+    "name": "Tran Anh Kiet",
+    "department": "Engineering",
+    "age": 27,
+    "salary": 1850,
+    "city": "Can Tho",
+    "joinDate": "2022-06-17",
+    "status": "Active"
+  },
+  {
+    "id": 17,
+    "name": "Hoang Minh Tri",
+    "department": "Engineering",
+    "age": 36,
+    "salary": 2550,
+    "city": "Hanoi",
+    "joinDate": "2018-01-21",
+    "status": "Active"
+  },
+  {
+    "id": 18,
+    "name": "Le Thi Mai",
+    "department": "HR",
+    "age": 34,
+    "salary": 1950,
+    "city": "Da Nang",
+    "joinDate": "2020-10-28",
+    "status": "Active"
+  },
+  {
+    "id": 19,
+    "name": "Nguyen Quang Hieu",
+    "department": "Finance",
+    "age": 41,
+    "salary": 2950,
+    "city": "HCMC",
+    "joinDate": "2015-11-11",
+    "status": "Active"
+  },
+  {
+    "id": 20,
+    "name": "Pham Gia Han",
+    "department": "Sales",
+    "age": 24,
+    "salary": 1500,
+    "city": "Hanoi",
+    "joinDate": "2024-02-01",
+    "status": "Probation"
+  },
+  {
+    "id": 21,
+    "name": "Do Thi Kim",
+    "department": "Marketing",
+    "age": 29,
+    "salary": 1720,
+    "city": "HCMC",
+    "joinDate": "2022-08-08",
+    "status": "Active"
+  },
+  {
+    "id": 22,
+    "name": "Bui Van Nam",
+    "department": "Engineering",
+    "age": 31,
+    "salary": 2200,
+    "city": "Hanoi",
+    "joinDate": "2020-04-13",
+    "status": "Active"
+  },
+  {
+    "id": 23,
+    "name": "Tran Minh Phuc",
+    "department": "Engineering",
+    "age": 37,
+    "salary": 2700,
+    "city": "Hai Phong",
+    "joinDate": "2017-09-18",
+    "status": "Active"
+  },
+  {
+    "id": 24,
+    "name": "Nguyen Thi Nga",
+    "department": "Finance",
+    "age": 39,
+    "salary": 2850,
+    "city": "Da Nang",
+    "joinDate": "2016-05-22",
+    "status": "Active"
+  },
+  {
+    "id": 25,
+    "name": "Le Thanh Tung",
+    "department": "Sales",
+    "age": 28,
+    "salary": 1680,
+    "city": "HCMC",
+    "joinDate": "2021-12-09",
+    "status": "Inactive"
+  },
+  {
+    "id": 26,
+    "name": "Pham Minh Quan",
+    "department": "Engineering",
+    "age": 26,
+    "salary": 1780,
+    "city": "Hanoi",
+    "joinDate": "2023-04-15",
+    "status": "Active"
+  },
+  {
+    "id": 27,
+    "name": "Hoang Thi Oanh",
+    "department": "HR",
+    "age": 30,
+    "salary": 1820,
+    "city": "Can Tho",
+    "joinDate": "2021-02-14",
+    "status": "Active"
+  },
+  {
+    "id": 28,
+    "name": "Dang Quoc Bao",
+    "department": "Marketing",
+    "age": 35,
+    "salary": 2050,
+    "city": "HCMC",
+    "joinDate": "2019-01-07",
+    "status": "Active"
+  },
+  {
+    "id": 29,
+    "name": "Vo Minh Duc",
+    "department": "Engineering",
+    "age": 33,
+    "salary": 2300,
+    "city": "Hanoi",
+    "joinDate": "2018-10-29",
+    "status": "Active"
+  },
+  {
+    "id": 30,
+    "name": "Tran Thu Ha",
+    "department": "Finance",
+    "age": 44,
+    "salary": 3100,
+    "city": "HCMC",
+    "joinDate": "2013-07-12",
+    "status": "Active"
+  }
+]

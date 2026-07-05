@@ -17,6 +17,19 @@ ItemViewModel::ItemViewModel(QObject *parent) : QSortFilterProxyModel(parent)
     this->connect(itemModel, &ItemModel::signalSortColumn, this, &ItemViewModel::handleColumnSort);
 }
 
+QString ItemViewModel::searchText()
+{
+    return m_searchText;
+}
+
+void ItemViewModel::setSearchText(const QString &text)
+{
+    m_searchText = text.trimmed();
+    emit searchTextChanged();
+
+    invalidateFilter();
+}
+
 void ItemViewModel::handleColumnSort(const int columnIndex)
 {
     if (m_sortColumn != columnIndex) {
@@ -53,10 +66,21 @@ void ItemViewModel::handleColumnSort(const int columnIndex)
     }
 }
 
-// bool ItemViewModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
-// {
+bool ItemViewModel::filterAcceptsRow(int sourceRow, const QModelIndex &sourceParent) const
+{
+    if (m_searchText.isEmpty()) return true;
 
-// }
+    int columnCounts = sourceModel()->columnCount(sourceParent);
+
+    for (int i = 0; i < columnCounts; i++) {
+        QModelIndex index = sourceModel()->index(sourceRow, i, sourceParent);
+        QString value = sourceModel()->data(index).toString();
+        if (value.contains(m_searchText, Qt::CaseInsensitive)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 bool ItemViewModel::lessThan(const QModelIndex &left, const QModelIndex &right) const
 {

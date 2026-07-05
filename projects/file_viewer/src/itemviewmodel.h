@@ -15,16 +15,23 @@ class ItemViewModel : public QSortFilterProxyModel
 {
     Q_OBJECT
     QML_UNCREATABLE("Cannot create ItemViewModel from QML")
+    Q_PROPERTY(QString searchText READ searchText WRITE setSearchText NOTIFY searchTextChanged FINAL)
 public:
     explicit ItemViewModel(QObject* parent = nullptr);
+
+    QString searchText();
+    void setSearchText(const QString& text);
 
 private slots:
     void handleColumnSort(const int columnIndex);
 
+signals:
+    void searchTextChanged();
+
 protected:
-    // bool filterAcceptsRow(
-    //     int sourceRow,
-    //     const QModelIndex &sourceParent) const override;
+    bool filterAcceptsRow(
+        int sourceRow,
+        const QModelIndex &sourceParent) const override;
 
     bool lessThan(
         const QModelIndex &left,
@@ -39,6 +46,7 @@ private:
 
     int m_sortColumn = -1;
     SortState m_sortState = SortState::NONE;
+    QString m_searchText{};
 };
 
 #endif // ITEMVIEWMODEL_H

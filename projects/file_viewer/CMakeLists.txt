@@ -34,6 +34,7 @@ qt_add_qml_module(appfile_viewer
         qml/ErrorDialog.qml
         qml/ItemTable.qml
         qml/OpenFileButton.qml
+        qml/SearchBar.qml
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
