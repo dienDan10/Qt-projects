@@ -21,6 +21,7 @@ public:
     explicit ActionProvider(QObject *parent = nullptr);
 
     Q_INVOKABLE void loadFile(const QUrl& fileUrl);
+    Q_INVOKABLE void sortColumn(const int columnIndex);
 
 signals:
 };

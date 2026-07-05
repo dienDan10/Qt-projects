@@ -30,8 +30,14 @@ public:
         Qt::Orientation orientation,
         int role = Qt::DisplayRole) const override;
 
+    QList<DataType> columnsType();
+
+signals:
+    void signalSortColumn(const int columnIndex);
+
 private slots:
     void onModelReset();
+    void onColumSorted(const int columnIndex);
 
 private:
     QSharedPointer<ItemStore> m_itemStore = nullptr;

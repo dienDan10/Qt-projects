@@ -24,15 +24,18 @@ public:
     int colsCount();
     QStringList headers();
     QVariantList rows();
+    QList<DataType> columnTypes();
 
 
     void process(const QSharedPointer<Action> &action) override;
 
 private:
     void handleLoadFile(const QUrl& url);
+    void handleSortColumn(const int columnIndex);
 
 signals:
     void modelReset();
+    void sortColumn(const int columnIndex);
 
 private:
     ItemData m_itemData;

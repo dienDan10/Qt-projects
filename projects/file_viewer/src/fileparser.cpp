@@ -11,7 +11,7 @@
 #include <QTextStream>
 #include <QVariantList>
 #include <QVariantMap>
-#include <QDebug>
+#include <QDate>
 
 FileParser::FileParser() {}
 
@@ -44,5 +44,38 @@ ItemData FileParser::parseFile(QString &filePath)
     }
     itemData.setRows(rows);
 
+    if (rows.isEmpty()) return itemData;
+
+    // store data types
+    QList<DataType> columnTypes{};
+    QVariantMap sampleRow = rows.at(0).toMap();
+    for (int i = 0; i < sampleRow.size(); i++) {
+        DataType type = detectCellType(sampleRow.value(itemData.headers().at(i)).toString());
+        columnTypes.append(type);
+    }
+    itemData.setDataType(columnTypes);
+
     return itemData;
+}
+
+DataType FileParser::detectCellType(const QString &cellStr)
+{
+    QString str = cellStr.trimmed();
+    if (str.isEmpty()) return DataType::STRING;
+
+    // check for int
+    bool isInt;
+    str.toInt(&isInt);
+    if (isInt) return DataType::INTERGER;
+
+    // check for double
+    bool isDouble;
+    str.toDouble(&isDouble);
+    if (isDouble) return DataType::DOUBLE;
+
+    // date time
+    QDate date = QDate::fromString(str, Qt::ISODate);
+    if (date.isValid()) return DataType::DATE;
+
+    return DataType::STRING;
 }

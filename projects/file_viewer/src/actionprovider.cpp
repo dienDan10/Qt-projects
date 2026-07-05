@@ -20,3 +20,9 @@ void ActionProvider::loadFile(const QUrl &fileUrl)
     auto action = QSharedPointer<Action>::create(ItemAction::OPEN_FILE, QVariant(fileUrl));
     emit Dispatcher::instance().actionDispatched(action);
 }
+
+void ActionProvider::sortColumn(const int columnIndex)
+{
+    auto action = QSharedPointer<Action>::create(ItemAction::SORT_COLUMN, QVariant(columnIndex));
+    emit Dispatcher::instance().actionDispatched(action);
+}

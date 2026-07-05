@@ -19,6 +19,9 @@ public:
 
 public:
     static ItemData parseFile(QString& filePath);
+
+private:
+    static DataType detectCellType(const QString& cellStr);
 };
 
 #endif // FILEPARSER_H

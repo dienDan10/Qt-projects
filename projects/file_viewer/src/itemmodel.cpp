@@ -16,6 +16,7 @@ ItemModel::ItemModel(QObject *parent) : QAbstractTableModel(parent)
     Dispatcher::instance().registerStore<ItemAction>(m_itemStore);
 
     this->connect(m_itemStore.get(), &ItemStore::modelReset, this, &ItemModel::onModelReset);
+    this->connect(m_itemStore.get(), &ItemStore::sortColumn, this, &ItemModel::onColumSorted);
 }
 
 int ItemModel::rowCount(const QModelIndex &parent) const
@@ -61,8 +62,18 @@ QVariant ItemModel::headerData(int section, Qt::Orientation orientation, int rol
     return section + 1;
 }
 
+QList<DataType> ItemModel::columnsType()
+{
+    return m_itemStore->columnTypes();
+}
+
 void ItemModel::onModelReset()
 {
     beginResetModel();
     endResetModel();
+}
+
+void ItemModel::onColumSorted(const int columnIndex)
+{
+    emit signalSortColumn(columnIndex);
 }

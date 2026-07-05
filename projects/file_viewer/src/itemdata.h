@@ -11,6 +11,7 @@
 
 #include <QList>
 #include <QVariant>
+#include <DataType.h>
 
 class ItemData
 {
@@ -19,14 +20,17 @@ public:
 
     QStringList headers() const;
     QVariantList rows() const;
+    QList<DataType> dataTypes() const;
     int rowsCount() const;
     int colsCount() const;
     bool setHeaders(QStringList& header);
     bool setRows(QVariantList& rows);
+    bool setDataType(QList<DataType>& types);
 
 private:
     QStringList m_headers{};
     QVariantList m_rows{};
+    QList<DataType> m_columnTypes{};
 };
 
 #endif // ITEMDATA_H

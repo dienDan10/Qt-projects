@@ -50,7 +50,7 @@ Item {
             HoverHandler { id: hHover }
 
             TapHandler {
-                onTapped: root.columnHeaderClicked(hCell.column)
+                onTapped: root.columnHeaderClicked(column)
             }
         }
     }

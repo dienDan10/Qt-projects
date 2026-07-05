@@ -12,6 +12,7 @@ ApplicationWindow {
     minimumWidth: 200
     minimumHeight: 250
     visible: true
+    color: "#1e1e1e"
 
     ColumnLayout {
         anchors.fill: parent
@@ -21,7 +22,7 @@ ApplicationWindow {
         OpenFileButton {
             id: btn_open_file
             Layout.alignment: Qt.AlignVCenter | Qt.AlignRight
-            Layout.rightMargin: 10
+            Layout.margins: 10
             onFileSelected: (fileUrl) => {
                 ActionProvider.loadFile(fileUrl)
             }
@@ -32,9 +33,9 @@ ApplicationWindow {
             Layout.fillHeight: true
             Layout.fillWidth: true
             model: ItemModel
-            onCellActivated: (row, column) => {
-                        console.log("Double click:", row, column)
-                    }
+            onColumnHeaderClicked: (column) => {
+                ActionProvider.sortColumn(column)
+            }
         }
     }
 

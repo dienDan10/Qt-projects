@@ -10,7 +10,8 @@
 #define ITEMACTION_H
 
 enum class ItemAction {
-    OPEN_FILE
+    OPEN_FILE,
+    SORT_COLUMN
 };
 
 #endif // ITEMACTION_H

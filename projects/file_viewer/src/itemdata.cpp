@@ -20,6 +20,11 @@ QVariantList ItemData::rows() const
     return m_rows;
 }
 
+QList<DataType> ItemData::dataTypes() const
+{
+    return m_columnTypes;
+}
+
 int ItemData::rowsCount() const
 {
     return m_rows.length();
@@ -39,5 +44,11 @@ bool ItemData::setHeaders(QStringList &header)
 bool ItemData::setRows(QVariantList &rows)
 {
     m_rows = rows;
+    return true;
+}
+
+bool ItemData::setDataType(QList<DataType> &types)
+{
+    m_columnTypes = types;
     return true;
 }

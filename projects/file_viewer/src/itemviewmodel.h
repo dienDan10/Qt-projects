@@ -15,11 +15,30 @@ class ItemViewModel : public QSortFilterProxyModel
 {
     Q_OBJECT
     QML_UNCREATABLE("Cannot create ItemViewModel from QML")
-    Q_PROPERTY(QString helloText READ helloText)
 public:
     explicit ItemViewModel(QObject* parent = nullptr);
 
-    QString helloText();
+private slots:
+    void handleColumnSort(const int columnIndex);
+
+protected:
+    // bool filterAcceptsRow(
+    //     int sourceRow,
+    //     const QModelIndex &sourceParent) const override;
+
+    bool lessThan(
+        const QModelIndex &left,
+        const QModelIndex &right) const override;
+
+private:
+    enum class SortState {
+        NONE,
+        ASCENDING,
+        DESCENDING
+    };
+
+    int m_sortColumn = -1;
+    SortState m_sortState = SortState::NONE;
 };
 
 #endif // ITEMVIEWMODEL_H
