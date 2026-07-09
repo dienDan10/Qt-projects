@@ -1,6 +1,3 @@
-# Qt Learning Roadmap
-
-Một lộ trình học Qt/QML/C++ gồm **11 project thực hành**, đi từ cơ bản đến nâng cao, được thiết kế để chuẩn bị kỹ năng cho công việc thực tế: xây dựng ứng dụng desktop Qt tích hợp bản đồ, xử lý dữ liệu realtime và kiến trúc middleware.
 
 ## Giới thiệu
 
@@ -28,7 +25,3 @@ Mỗi project là một ứng dụng nhỏ, độc lập, tập trung vào một
 - Sơ đồ kiến trúc và cây thư mục minh họa cho từng project, giúp hình dung cách tổ chức code.
 - Các bước thực hiện chi tiết theo trình tự, kèm ghi chú, lưu ý và mẹo thực hành.
 - Phân loại theo cấp độ (Beginner → Capstone) và đánh dấu project nào liên quan trực tiếp đến công việc thực tế.
-
-## Mục tiêu
-
-Lộ trình được xây dựng để dẫn tới việc làm chủ một ứng dụng Qt hoàn chỉnh dạng dashboard giám sát/điều khiển (SCADA/HMI) — nền tảng gần nhất với các ứng dụng embedded/industrial thực tế, cũng như hướng tới việc tích hợp các nguồn dữ liệu realtime kiểu publish/subscribe (ví dụ DDS) trong công việc.
