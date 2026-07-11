@@ -15,13 +15,30 @@ if (EXISTS "${CMAKE_CURRENT_LIST_DIR}/importedcontent/CMakeLists.txt")
 endif()
 
 qt_add_executable(appsystem_monitor
-    main.cpp
+    src/main.cpp
 )
+
+set_source_files_properties(qml/theme/Theme.qml
+    PROPERTIES QT_QML_SINGLETON_TYPE TRUE)
 
 qt_add_qml_module(appsystem_monitor
     URI system_monitor
     QML_FILES
-        Main.qml
+        qml/ui/Main.qml
+        QML_FILES qml/theme/Theme.qml
+        QML_FILES qml/theme/DarkPalette.qml
+        QML_FILES qml/theme/LightPalette.qml
+        QML_FILES qml/theme/Typography.qml
+        QML_FILES qml/theme/Spacing.qml
+)
+
+qt_add_resources(appsystem_monitor
+    PREFIX "/"
+    FILES
+        assets/fonts/Inter_18pt-Regular.ttf
+        assets/fonts/Inter_18pt-Medium.ttf
+        assets/fonts/Inter_18pt-SemiBold.ttf
+        assets/fonts/Inter_18pt-Bold.ttf
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
@@ -43,4 +60,8 @@ install(TARGETS appsystem_monitor
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+target_include_directories(appsystem_monitor
+    PRIVATE  ${CMAKE_CURRENT_LIST_DIR}/src
 )

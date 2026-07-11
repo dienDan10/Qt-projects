@@ -8,10 +8,26 @@
  */
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QFontDatabase>
+
+void setAppFont(const QGuiApplication& app) {
+    QFontDatabase::addApplicationFont(
+        ":/assets/fonts/Inter_18pt-Regular.ttf");
+    QFontDatabase::addApplicationFont(
+        ":/assets/fonts/Inter_18pt-Medium.ttf");
+    QFontDatabase::addApplicationFont(
+        ":/assets/fonts/Inter_18pt-SemiBold.ttf");
+    QFontDatabase::addApplicationFont(
+        ":/assets/fonts/Inter_18pt-Bold.ttf");
+
+    app.setFont(QFont("Inter"));
+}
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    // set font
+    setAppFont(app);
 
     QQmlApplicationEngine engine;
     QObject::connect(
