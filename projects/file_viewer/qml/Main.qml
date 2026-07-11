@@ -42,6 +42,16 @@ ApplicationWindow {
             }
         }
 
+        Text{
+            id: row_col_count
+            text: `Rows: ${ItemModel.rowsCount} x Columns: ${ItemModel.columnsCount}`
+            font.pixelSize: 14
+            font.family: 'monospace'
+            font.italic: true
+            color: '#FFFFFF'
+            Layout.margins: 5
+        }
+
         // Item table
         ItemTable {
             id: item_table

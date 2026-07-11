@@ -9,12 +9,16 @@
 #include "itemviewmodel.h"
 #include "itemmodel.h"
 #include <QDate>
+#include <QDebug>
 
 ItemViewModel::ItemViewModel(QObject *parent) : QSortFilterProxyModel(parent)
 {
     auto itemModel = new ItemModel();
     this->setSourceModel(itemModel);
     this->connect(itemModel, &ItemModel::signalSortColumn, this, &ItemViewModel::handleColumnSort);
+    this->connect(this, &QAbstractItemModel::modelReset, this, [this]() {
+        emit rowsCountChanged();
+    });
 
     // set timer
     m_debounceTimer = new QTimer(this);
@@ -22,6 +26,7 @@ ItemViewModel::ItemViewModel(QObject *parent) : QSortFilterProxyModel(parent)
     m_debounceTimer->setSingleShot(true);
     this->connect(m_debounceTimer, &QTimer::timeout, this, [this]() {
         this->invalidateFilter();
+        emit rowsCountChanged();
     });
 }
 

@@ -17,6 +17,8 @@ class ItemViewModel : public QSortFilterProxyModel
     Q_OBJECT
     QML_UNCREATABLE("Cannot create ItemViewModel from QML")
     Q_PROPERTY(QString searchText READ searchText WRITE setSearchText NOTIFY searchTextChanged FINAL)
+    Q_PROPERTY(int rowsCount READ rowCount NOTIFY rowsCountChanged FINAL)
+    Q_PROPERTY(int columnsCount READ columnCount NOTIFY columnsCountChanged FINAL)
 public:
     explicit ItemViewModel(QObject* parent = nullptr);
 
@@ -28,6 +30,8 @@ private slots:
 
 signals:
     void searchTextChanged();
+    void rowsCountChanged();
+    void columnsCountChanged();
 
 protected:
     bool filterAcceptsRow(
