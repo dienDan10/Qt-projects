@@ -31,6 +31,7 @@ private slots:
 signals:
     void searchTextChanged();
     void rowsCountChanged();
+    void columnsCountChanged();
 
 protected:
     bool filterAcceptsRow(
