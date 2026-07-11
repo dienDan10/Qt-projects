@@ -18,10 +18,12 @@ public:
     FileParser();
 
 public:
-    static ItemData parseFile(QString& filePath);
+    static ItemData parseFile(const QString& filePath);
 
 private:
     static DataType detectCellType(const QString& cellStr);
+    static ItemData parseCSVFIle(const QString& filePath);
+    static ItemData parseJsonFile(const QString& filePath);
 };
 
 #endif // FILEPARSER_H

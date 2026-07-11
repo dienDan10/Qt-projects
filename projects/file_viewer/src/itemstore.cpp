@@ -10,7 +10,8 @@
 #include "flux/action.h"
 #include "ItemAction.h"
 #include "fileparser.h"
-#include <QDebug>
+#include <QFutureWatcher>
+#include <QtConcurrent/QtConcurrent>
 
 ItemStore::ItemStore(QObject *parent)
     : QObject{parent}
@@ -60,13 +61,22 @@ void ItemStore::handleLoadFile(const QUrl &url)
 {
     QString path = url.toLocalFile();
 
-    try {
-        m_itemData = FileParser::parseFile(path);
-        emit modelReset();
+    // m_itemData = FileParser::parseFile(path);
+    auto future = QtConcurrent::run(FileParser::parseFile, path);
+    auto watcher = new QFutureWatcher<ItemData>();
 
-    } catch (QString& error) {
-        qInfo() << error;
-    }
+    connect(watcher, &QFutureWatcher<ItemData>::finished, this, [watcher, this](){
+        try {
+            m_itemData = watcher->result();
+            emit modelReset();
+            watcher->deleteLater();
+        }
+        catch (QString& error) {
+            Q_UNUSED(error)
+        }
+    });
+
+    watcher->setFuture(future);
 }
 
 void ItemStore::handleSortColumn(const int columnIndex)

@@ -5,7 +5,7 @@ project(file_viewer VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt6 REQUIRED COMPONENTS Quick Concurrent)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -49,7 +49,7 @@ set_target_properties(appfile_viewer PROPERTIES
 )
 
 target_link_libraries(appfile_viewer
-    PRIVATE Qt6::Quick
+    PRIVATE Qt6::Quick Qt6::Concurrent
 )
 
 target_include_directories (appfile_viewer
