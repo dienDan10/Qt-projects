@@ -10,6 +10,9 @@
 #define METRICWORKER_H
 
 #include <QObject>
+#include <memory>
+#include <QTimer>
+#include "ISystemMetricProvider.h"
 
 class MetricWorker : public QObject
 {
@@ -18,6 +21,23 @@ public:
     explicit MetricWorker(QObject *parent = nullptr);
 
 signals:
+    void initializeFailed();
+    void cpuMetricReceived(double metric);
+    void ramMetricReceived(double metric);
+
+public slots:
+    void initialize();
+    void pauseTimer();
+    void resumeTimer();
+
+private:
+    void getSystemMetrics();
+    void getCpuMetric();
+    void getRamMetric();
+
+private:
+    std::unique_ptr<ISystemMetricProvider> m_metricProvider;
+    QTimer* m_timer = nullptr;
 };
 
 #endif // METRICWORKER_H
