@@ -16,6 +16,8 @@ endif()
 
 qt_add_executable(appsystem_monitor
     src/main.cpp
+    src/metrics/ISystemMetricProvider.h
+    src/metrics/metricproviderfactory.h
 )
 
 set_source_files_properties(qml/theme/Theme.qml
@@ -25,12 +27,25 @@ qt_add_qml_module(appsystem_monitor
     URI system_monitor
     QML_FILES
         qml/ui/Main.qml
-        QML_FILES qml/theme/Theme.qml
-        QML_FILES qml/theme/DarkPalette.qml
-        QML_FILES qml/theme/LightPalette.qml
-        QML_FILES qml/theme/Typography.qml
-        QML_FILES qml/theme/Spacing.qml
+        qml/theme/Theme.qml
+        qml/theme/DarkPalette.qml
+        qml/theme/LightPalette.qml
+        qml/theme/Typography.qml
+        qml/theme/Spacing.qml
+        src/metrics/metricworker.h src/metrics/metricworker.cpp
 )
+
+if(WIN32)
+    target_sources(appsystem_monitor PRIVATE
+        src/metrics/windowmetricprovider.cpp
+        src/metrics/windowmetricprovider.h
+    )
+elseif(UNIX)
+    target_sources(appsystem_monitor PRIVATE
+        src/metrics/linuxmetricprovider.cpp
+        src/metrics/linuxmetricprovider.h
+    )
+endif()
 
 qt_add_resources(appsystem_monitor
     PREFIX "/"

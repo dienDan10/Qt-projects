@@ -2,7 +2,6 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
 
-
 ApplicationWindow {
     id: window
     width: 640
@@ -11,5 +10,7 @@ ApplicationWindow {
     minimumHeight: 250
     visible: true
 
-
+    Text {
+        text: "Hello world"
+    }
 }
