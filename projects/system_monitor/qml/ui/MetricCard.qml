@@ -1,0 +1,79 @@
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Layouts
+
+Rectangle {
+    id: root
+
+    radius: Theme.spacing.radiusXl
+    color: Theme.current.surfaceContainerLow
+    border.color: Theme.current.outlineVariant
+    border.width: 1
+    antialiasing: true
+
+    gradient: Gradient {
+        GradientStop { position: 0.0; color: Theme.current.surfaceContainer }
+        GradientStop { position: 1.0; color: Theme.current.surfaceContainerLow }
+    }
+
+    property alias title: titleLabel.text
+    property alias subtitle: valueLabel.text
+    property bool paused: false
+
+    implicitHeight: 320
+
+    ColumnLayout {
+        anchors.fill: parent
+        anchors.margins: Theme.spacing.cardPadding
+        spacing: Theme.spacing.md
+
+        RowLayout {
+            Layout.fillWidth: true
+
+            ColumnLayout {
+                Layout.fillWidth: true
+                spacing: Theme.spacing.xxxs
+
+                Label {
+                    id: titleLabel
+                    color: Theme.current.surfaceOn
+                    font.family: Theme.typography.familySans
+                    font.pixelSize: Theme.typography.titleMediumPixelSize
+                    font.weight: Theme.typography.titleMediumWeight
+                }
+
+                Label {
+                    id: valueLabel
+                    color: Theme.current.surfaceVariantOn
+                    font.family: Theme.typography.familySans
+                    font.pixelSize: Theme.typography.bodyPixelSize
+                    font.weight: Theme.typography.bodyWeight
+                }
+            }
+
+            Rectangle {
+                implicitWidth: 76
+                implicitHeight: 28
+                radius: 999
+                color: paused ? Theme.current.secondaryContainer : Theme.current.primaryContainer
+                border.color: Theme.current.outlineVariant
+                border.width: 1
+
+                Label {
+                    anchors.centerIn: parent
+                    text: paused ? "Paused" : "Live"
+                    color: paused ? Theme.current.secondaryContainerOn : Theme.current.primaryContainerOn
+                    font.family: Theme.typography.familySans
+                    font.pixelSize: Theme.typography.labelMediumPixelSize
+                    font.weight: Theme.typography.labelMediumWeight
+                }
+            }
+        }
+
+        ResourceChart {
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            paused: root.paused
+        }
+    }
+}

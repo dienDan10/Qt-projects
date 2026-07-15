@@ -6,7 +6,7 @@
  * Copyright (c) 2026 diendanx.
  * All rights reserved.
  */
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QFontDatabase>
 
@@ -25,7 +25,7 @@ void setAppFont(const QGuiApplication& app) {
 
 int main(int argc, char *argv[])
 {
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
     // set font
     setAppFont(app);
 
@@ -38,5 +38,5 @@ int main(int argc, char *argv[])
         Qt::QueuedConnection);
     engine.loadFromModule("system_monitor", "Main");
 
-    return QGuiApplication::exec();
+    return app.exec();
 }

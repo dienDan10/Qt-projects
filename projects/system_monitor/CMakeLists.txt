@@ -5,7 +5,7 @@ project(system_monitor VERSION 0.1 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(QT_QML_GENERATE_QMLLS_INI ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt6 REQUIRED COMPONENTS Quick Charts)
 
 qt_standard_project_setup(REQUIRES 6.8)
 
@@ -18,6 +18,8 @@ qt_add_executable(appsystem_monitor
     src/main.cpp
     src/metrics/ISystemMetricProvider.h
     src/metrics/metricproviderfactory.h
+    src/metrics/metricworker.h src/metrics/metricworker.cpp
+    src/controller/monitorcontroller.h src/controller/monitorcontroller.cpp
 )
 
 set_source_files_properties(qml/theme/Theme.qml
@@ -32,7 +34,9 @@ qt_add_qml_module(appsystem_monitor
         qml/theme/LightPalette.qml
         qml/theme/Typography.qml
         qml/theme/Spacing.qml
-        src/metrics/metricworker.h src/metrics/metricworker.cpp
+        qml/ui/ControlBar.qml
+        qml/ui/MetricCard.qml
+        qml/ui/ResourceChart.qml
 )
 
 if(WIN32)
@@ -68,7 +72,7 @@ set_target_properties(appsystem_monitor PROPERTIES
 )
 
 target_link_libraries(appsystem_monitor
-    PRIVATE Qt6::Quick
+    PRIVATE Qt6::Quick Qt6::Charts
 )
 
 install(TARGETS appsystem_monitor
