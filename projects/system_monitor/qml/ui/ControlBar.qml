@@ -12,21 +12,21 @@ Rectangle {
 
     implicitHeight: 84
     radius: Theme.spacing.radiusXl
-    color: Theme.current.surfaceContainer
+    color: Theme.current.primaryOn
     border.color: Theme.current.outlineVariant
     border.width: 1
     antialiasing: true
 
-    gradient: Gradient {
-        GradientStop {
-            position: 0.0
-            color: Theme.current.surfaceContainerHigh
-        }
-        GradientStop {
-            position: 1.0
-            color: Theme.current.surfaceContainer
-        }
-    }
+    // gradient: Gradient {
+    //     GradientStop {
+    //         position: 0.0
+    //         color: Theme.current.surface
+    //     }
+    //     GradientStop {
+    //         position: 1.0
+    //         color: Theme.current.surfaceBright
+    //     }
+    // }
 
     RowLayout {
         anchors.fill: parent
@@ -34,25 +34,28 @@ Rectangle {
         spacing: Theme.spacing.lg
 
         ColumnLayout {
-            Layout.fillWidth: true
             spacing: Theme.spacing.xxxs
 
             Label {
                 text: "System Monitor"
-                color: Theme.current.surfaceOn
+                color: Theme.current.primary
                 font.family: Theme.typography.familySans
                 font.pixelSize: Theme.typography.appTitlePixelSize
-                font.weight: Theme.typography.appTitleWeight
+                font.weight: Theme.typography.weightBold
                 font.letterSpacing: Theme.typography.appTitleLetterSpacing
             }
 
             Label {
                 text: paused ? "Metrics paused" : "Live system metrics"
-                color: Theme.current.surfaceVariantOn
+                color: Theme.current.primary
                 font.family: Theme.typography.familySans
                 font.pixelSize: Theme.typography.bodyPixelSize
                 font.weight: Theme.typography.bodyWeight
             }
+        }
+
+        Item {
+            Layout.fillWidth: true
         }
 
         Rectangle {
@@ -72,6 +75,10 @@ Rectangle {
                 font.pixelSize: Theme.typography.labelMediumPixelSize
                 font.weight: Theme.typography.labelMediumWeight
             }
+        }
+
+        Item {
+            Layout.fillWidth: true
         }
 
         Button {
@@ -105,6 +112,8 @@ Rectangle {
             text: "Resume"
             enabled: paused
             Layout.alignment: Qt.AlignVCenter
+            Layout.preferredWidth: implicitWidth
+            Layout.maximumWidth: implicitWidth
 
             contentItem: Label {
                 text: resumeButton.text

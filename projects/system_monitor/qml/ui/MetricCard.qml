@@ -6,15 +6,21 @@ Rectangle {
     id: root
 
     radius: Theme.spacing.radiusXl
-    color: Theme.current.surfaceContainerLow
+    color: Theme.current.primaryOn
     border.color: Theme.current.outlineVariant
     border.width: 1
     antialiasing: true
 
-    gradient: Gradient {
-        GradientStop { position: 0.0; color: Theme.current.surfaceContainer }
-        GradientStop { position: 1.0; color: Theme.current.surfaceContainerLow }
-    }
+    // gradient: Gradient {
+    //     GradientStop {
+    //         position: 0.0
+    //         color: Theme.current.surfaceContainer
+    //     }
+    //     GradientStop {
+    //         position: 1.0
+    //         color: Theme.current.surfaceContainerLow
+    //     }
+    // }
 
     property alias title: titleLabel.text
     property alias subtitle: valueLabel.text
@@ -25,30 +31,33 @@ Rectangle {
     ColumnLayout {
         anchors.fill: parent
         anchors.margins: Theme.spacing.cardPadding
-        spacing: Theme.spacing.md
+        // spacing: Theme.spacing.md
 
         RowLayout {
             Layout.fillWidth: true
 
             ColumnLayout {
-                Layout.fillWidth: true
                 spacing: Theme.spacing.xxxs
 
                 Label {
                     id: titleLabel
-                    color: Theme.current.surfaceOn
+                    color: Theme.current.primary
                     font.family: Theme.typography.familySans
                     font.pixelSize: Theme.typography.titleMediumPixelSize
-                    font.weight: Theme.typography.titleMediumWeight
+                    font.weight: Theme.typography.weightSemiBold
                 }
 
                 Label {
                     id: valueLabel
-                    color: Theme.current.surfaceVariantOn
+                    color: Theme.current.primary
                     font.family: Theme.typography.familySans
                     font.pixelSize: Theme.typography.bodyPixelSize
                     font.weight: Theme.typography.bodyWeight
                 }
+            }
+
+            Item {
+                Layout.fillWidth: true
             }
 
             Rectangle {

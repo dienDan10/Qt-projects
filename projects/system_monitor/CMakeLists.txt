@@ -37,6 +37,7 @@ qt_add_qml_module(appsystem_monitor
         qml/ui/ControlBar.qml
         qml/ui/MetricCard.qml
         qml/ui/ResourceChart.qml
+        qml/components/PrimaryBackground.qml
 )
 
 if(WIN32)
