@@ -6,7 +6,7 @@ Rectangle {
     id: root
 
     radius: Theme.spacing.radiusXl
-    color: Theme.current.primaryOn
+    color: Theme.current.secondaryOn
     border.color: Theme.current.outlineVariant
     border.width: 1
     antialiasing: true

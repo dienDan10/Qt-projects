@@ -4,6 +4,7 @@ import QtCharts
 Rectangle {
     id: root
     property bool paused: false
+    color: Theme.current.secondaryOn
 
     ChartView {
         id: chart
