@@ -20,10 +20,13 @@ class MetricWorker : public QObject
 public:
     explicit MetricWorker(QObject *parent = nullptr);
 
+public:
+    double getDeviceTotalRam();
+
 signals:
     void initializeFailed();
-    void cpuMetricReceived(double metric);
-    void ramMetricReceived(double metric);
+    void cpuMetricReceived(CpuMetric metric);
+    void ramMetricReceived(RamMetric ramInfo);
 
 public slots:
     void initialize();

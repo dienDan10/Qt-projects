@@ -3,12 +3,16 @@ import QtCharts
 
 Rectangle {
     id: root
-    property bool paused: false
     color: Theme.current.secondaryOn
+
+    property alias areaSeries: line
+    property alias chartLabelTL: topLeftLabel.text
+    property alias chartLabelTR: topRightLabel.text
+    property alias chartLabelBL: bottomLeftLabel.text
+    property alias chartLabelBR: bottomRightLabel.text
 
     ChartView {
         id: chart
-        property var samples: []
 
         legend.visible: false
         antialiasing: true
@@ -48,6 +52,7 @@ Rectangle {
         }
 
         AreaSeries {
+            // id: areaSeries
             axisX: axisX
             axisY: axisY
             // color: Theme.current.primaryContainer
@@ -57,45 +62,6 @@ Rectangle {
 
             upperSeries: LineSeries {
                 id: line
-            }
-        }
-
-        Component.onCompleted: {
-            chart.samples = [];
-
-            for (let i = 0; i < 60; ++i)
-                chart.samples.push(0);
-
-            chart.syncSeries();
-        }
-
-        function syncSeries() {
-            line.clear();
-
-            for (let i = 0; i < chart.samples.length; ++i)
-                line.append(i, chart.samples[i]);
-        }
-
-        Timer {
-            interval: 1000
-            repeat: true
-            running: true
-
-            onTriggered: {
-                if (root.paused)
-                    return;
-
-                if (chart.samples.length !== 60) {
-                    chart.samples = [];
-
-                    for (let i = 0; i < 60; ++i)
-                        chart.samples.push(0);
-                }
-
-                chart.samples.shift();
-                chart.samples.push(Math.random() * 100);
-
-                chart.syncSeries();
             }
         }
     }

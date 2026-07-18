@@ -38,6 +38,8 @@ qt_add_qml_module(appsystem_monitor
         qml/ui/MetricCard.qml
         qml/ui/ResourceChart.qml
         qml/components/PrimaryBackground.qml
+        QML_FILES qml/ui/BtnToggleTheme.qml
+        SOURCES src/metrics/metric.h
 )
 
 if(WIN32)

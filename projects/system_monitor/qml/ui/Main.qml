@@ -3,6 +3,7 @@ import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import QtCharts
 import "../components"
+import monitor.singleton 1.0
 
 ApplicationWindow {
     id: root
@@ -21,6 +22,7 @@ ApplicationWindow {
         anchors.margins: Theme.spacing.pageMargin
         spacing: Theme.spacing.sectionGap
 
+        //======================CONTROL BAR=================================
         ControlBar {
             Layout.fillWidth: true
 
@@ -30,15 +32,32 @@ ApplicationWindow {
             onResumeClicked: root.paused = false
         }
 
-        Label {
-            text: "Live CPU and memory activity"
-            color: Theme.current.surfaceVariantOn
-            font.family: Theme.typography.familySans
-            font.pixelSize: Theme.typography.bodyPixelSize
-            font.weight: Theme.typography.bodyWeight
+        //======================== LABEL AND TOGGLE DARK LIGHT THEME =================
+        RowLayout {
             Layout.fillWidth: true
+
+            Label {
+                text: "Live CPU and memory activity"
+                color: Theme.current.surfaceVariantOn
+                font.family: Theme.typography.familySans
+                font.pixelSize: Theme.typography.bodyPixelSize
+                font.weight: Theme.typography.bodyWeight
+            }
+
+            Item {
+                Layout.fillWidth: true
+            }
+
+            BtnToggleTheme {
+                dark: Theme.darkMode
+
+                onToggled: {
+                    Theme.darkMode = !Theme.darkMode;
+                }
+            }
         }
 
+        //======================= METRIC MONITOR SECTION =============================
         GridLayout {
             Layout.fillWidth: true
             columns: root.width > 1200 ? 2 : 1
@@ -46,25 +65,43 @@ ApplicationWindow {
             columnSpacing: Theme.spacing.sectionGap
 
             MetricCard {
+                id: cpuMetricCard
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.preferredHeight: 500
                 Layout.maximumHeight: 500
 
-                title: "CPU Usage"
-                subtitle: "23 %"
+                title: "CPU"
+                subtitle: `${Monitor.currentCpu}%`
+                chartLabelTL: "% Utilization"
+                chartLabelBL: "60 seconds"
+                chartLabelTR: `100%`
+                chartLabelBR: "0"
                 paused: root.paused
+
+                Component.onCompleted: {
+                    Monitor.setCpuSeries(cpuMetricCard.areaSeries);
+                }
             }
 
             MetricCard {
+                id: ramMetricCard
                 Layout.fillWidth: true
                 Layout.fillHeight: true
                 Layout.preferredHeight: 500
                 Layout.maximumHeight: 500
 
-                title: "Memory Usage"
-                subtitle: "6.3 GB / 16 GB"
+                title: "Memory"
+                subtitle: `${Monitor.currentRam.toFixed(1)} GB`
+                chartLabelTL: "Memory Usage"
+                chartLabelBL: "60 seconds"
+                chartLabelTR: `${Monitor.deviceTotalRam.toFixed(1)} GB`
+                chartLabelBR: "0"
                 paused: root.paused
+
+                Component.onCompleted: {
+                    Monitor.setRamSeries(ramMetricCard.areaSeries);
+                }
             }
         }
 

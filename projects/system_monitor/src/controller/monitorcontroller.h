@@ -21,9 +21,11 @@ class MonitorController : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(int currentCpu READ currentCpu NOTIFY currentCpuChanged FINAL)
-    Q_PROPERTY(int currentRam READ currentRam NOTIFY currentRamChanged FINAL)
+    Q_PROPERTY(double currentRam READ currentRam NOTIFY currentRamChanged FINAL)
+    Q_PROPERTY(double deviceTotalRam READ deviceTotalRam NOTIFY deviceTotalRamChanged FINAL)
 public:
     explicit MonitorController(QObject *parent = nullptr);
+    ~MonitorController();
 
     Q_INVOKABLE void setCpuSeries(QXYSeries* cpuSeries);
     Q_INVOKABLE void setRamSeries(QXYSeries* ramSeries);
@@ -31,17 +33,19 @@ public:
     Q_INVOKABLE void resumeMonitor();
 
     int currentCpu();
-    int currentRam();
+    double currentRam();
+    double deviceTotalRam();
+    void initialize();
 
 signals:
+    void initializeFail();
     void currentCpuChanged();
     void currentRamChanged();
+    void deviceTotalRamChanged();
 
 private:
-    void initialize();
-    void initializeFail();
-    void onCpuMetricReceived(double metric);
-    void onRamMetricReceived(double metric);
+    void onCpuMetricReceived(CpuMetric cpuMetric);
+    void onRamMetricReceived(RamMetric ramMetric);
 
 private:
     enum class ControllerState {
@@ -57,6 +61,7 @@ private:
 
     double m_currentCpu = 0;
     double m_currentRam = 0;
+    double m_deviceTotalRam = 0;
 
     QPointer<QXYSeries> m_cpuSeries;
     QList<QPointF> m_cpuPoints;

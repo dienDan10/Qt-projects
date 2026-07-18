@@ -7,11 +7,20 @@
  * All rights reserved.
  */
 #include "monitorcontroller.h"
-
+#include <QDebug>
 MonitorController::MonitorController(QObject *parent)
     : QObject{parent}
 {
-    initialize();
+}
+
+MonitorController::~MonitorController()
+{
+    m_workerThread->quit();
+    if (! m_workerThread->wait(1000)) {
+        // incase thread cannot stop due to the worker is still running
+        // that means the worker logic have problem
+        qCritical() << "Metric workder thread failed to quit on time.";
+    }
 }
 
 void MonitorController::initialize()
@@ -22,7 +31,9 @@ void MonitorController::initialize()
     connect(m_workerThread, &QThread::started, m_metricWorker, &MetricWorker::initialize);
     connect(m_workerThread, &QThread::finished, m_metricWorker, &QObject::deleteLater);
 
-    connect(m_metricWorker, &MetricWorker::initializeFailed, this, &MonitorController::initializeFail);
+    connect(m_metricWorker, &MetricWorker::initializeFailed, this, [this]() {
+        emit initializeFail();
+    });
     connect(m_metricWorker, &MetricWorker::cpuMetricReceived, this, &MonitorController::onCpuMetricReceived);
     connect(m_metricWorker, &MetricWorker::ramMetricReceived, this, &MonitorController::onRamMetricReceived);
 
@@ -32,12 +43,10 @@ void MonitorController::initialize()
         m_ramPoints.append(QPointF(i, 0));
     }
 
-    m_workerThread->start();
-}
+    // get device total ram
+    m_deviceTotalRam = m_metricWorker->getDeviceTotalRam() / (1024.0 * 1024.0 * 1024.0);
 
-void MonitorController::initializeFail()
-{
-    // Todo: We can quite the app here or show error
+    m_workerThread->start();
 }
 
 void MonitorController::setCpuSeries(QXYSeries *cpuSeries)
@@ -65,18 +74,23 @@ int MonitorController::currentCpu()
     return m_currentCpu;
 }
 
-int MonitorController::currentRam()
+double MonitorController::currentRam()
 {
     return m_currentRam;
 }
 
-void MonitorController::onCpuMetricReceived(double metric)
+double MonitorController::deviceTotalRam()
+{
+    return m_deviceTotalRam;
+}
+
+void MonitorController::onCpuMetricReceived(CpuMetric metric)
 {
     for (int i = 0; i < 59; i++) {
         m_cpuPoints[i].setY(m_cpuPoints[i + 1].y());
     }
-    m_cpuPoints[59].setY(metric);
-    m_currentCpu = static_cast<int>(std::round(metric));
+    m_cpuPoints[59].setY(metric.usePercentage);
+    m_currentCpu = static_cast<int>(std::round(metric.usePercentage));
     emit currentCpuChanged();
 
     if (m_cpuSeries != nullptr) {
@@ -84,13 +98,13 @@ void MonitorController::onCpuMetricReceived(double metric)
     }
 }
 
-void MonitorController::onRamMetricReceived(double metric)
+void MonitorController::onRamMetricReceived(RamMetric ramMetric)
 {
     for (int i = 0; i < 59; i++) {
         m_ramPoints[i].setY(m_ramPoints[i + 1].y());
     }
-    m_ramPoints[59].setY(metric);
-    m_currentRam = static_cast<int>(std::round(metric));
+    m_ramPoints[59].setY(ramMetric.usePercentage);
+    m_currentRam = (ramMetric.totalRam - ramMetric.availableRam) / (1024.0 * 1024.0 * 1024.0);
     emit currentRamChanged();
 
     if (m_ramSeries != nullptr) {

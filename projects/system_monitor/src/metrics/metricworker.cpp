@@ -17,6 +17,13 @@ MetricWorker::MetricWorker(QObject *parent)
     m_timer->setInterval(1000);
 }
 
+double MetricWorker::getDeviceTotalRam()
+{
+    double totalRam = m_metricProvider->getTotalRam();
+    // handle -1 return;
+    return totalRam;
+}
+
 void MetricWorker::initialize()
 {
     bool initResult = false;
@@ -53,14 +60,14 @@ void MetricWorker::getSystemMetrics()
 
 void MetricWorker::getCpuMetric()
 {
-    double cpuMetric = m_metricProvider->readCpuUsage();
+    CpuMetric cpuMetric = m_metricProvider->readCpuMetric();
     // todo: handle -1;
     emit cpuMetricReceived(cpuMetric);
 }
 
 void MetricWorker::getRamMetric()
 {
-    double ramMetric = m_metricProvider->readRamUsage();
-    // todo: handle -1;
+    RamMetric ramMetric = m_metricProvider->readRamMetric();
+    // todo: handle no value return;
     emit ramMetricReceived(ramMetric);
 }

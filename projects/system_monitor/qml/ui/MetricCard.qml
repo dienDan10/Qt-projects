@@ -25,6 +25,11 @@ Rectangle {
     property alias title: titleLabel.text
     property alias subtitle: valueLabel.text
     property bool paused: false
+    property alias areaSeries: resouceChart.areaSeries
+    property alias chartLabelTL: resouceChart.chartLabelTL
+    property alias chartLabelTR: resouceChart.chartLabelTR
+    property alias chartLabelBL: resouceChart.chartLabelBL
+    property alias chartLabelBR: resouceChart.chartLabelBR
 
     implicitHeight: 320
 
@@ -80,9 +85,9 @@ Rectangle {
         }
 
         ResourceChart {
+            id: resouceChart
             Layout.fillWidth: true
             Layout.fillHeight: true
-            paused: root.paused
         }
     }
 }

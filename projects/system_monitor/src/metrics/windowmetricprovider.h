@@ -19,8 +19,9 @@ public:
     WindowMetricProvider();
 
     bool initialize() override;
-    double readCpuUsage() override;
-    double readRamUsage() override;
+    CpuMetric readCpuMetric() override;
+    RamMetric readRamMetric() override;
+    double getTotalRam() override;
 
 private:
     static uint64_t FileTimeToInt64(const FILETIME& ft);

@@ -8,13 +8,15 @@
  */
 #ifndef ISYSTEMMETRICPROVIDER_H
 #define ISYSTEMMETRICPROVIDER_H
+#include "metric.h"
 
 class ISystemMetricProvider {
 public:
     virtual ~ISystemMetricProvider() = default;
     virtual bool initialize() = 0;
-    virtual double readCpuUsage() = 0;
-    virtual double readRamUsage() = 0;
+    virtual CpuMetric readCpuMetric() = 0;
+    virtual RamMetric readRamMetric() = 0;
+    virtual double getTotalRam() = 0;
 };
 
 #endif // ISYSTEMMETRICPROVIDER_H

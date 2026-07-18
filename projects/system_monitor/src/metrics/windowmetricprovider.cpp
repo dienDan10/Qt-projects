@@ -30,11 +30,12 @@ bool WindowMetricProvider::initialize()
     return true;
 }
 
-double WindowMetricProvider::readCpuUsage()
+CpuMetric WindowMetricProvider::readCpuMetric()
 {
     FILETIME idle, kernal, user;
+    CpuMetric cpuMetric;
     if (!GetSystemTimes(&idle, &kernal, &user)) {
-        return -1;
+        return cpuMetric;
     }
 
     // convert FILETIME to int 64
@@ -55,19 +56,45 @@ double WindowMetricProvider::readCpuUsage()
     m_prevUser = user;
 
     // calculate cpu %
-    if (deltaTotal == 0.0) return -1;   // in case we call too fast, but rarely happend
+    if (deltaTotal == 0.0) return cpuMetric;   // in case we call too fast, but rarely happend
     double usage = (1.0 - static_cast<double>(deltaIdle) / static_cast<double>(deltaTotal)) * 100;
-
+    cpuMetric.usePercentage = usage < 0.0 ? 0.0 : (usage > 100.0) ? 100.0 : usage;
     /*
      * deltaIdle <= deltaTotal
      * so deltaIdle can be equal deltaTotal (i don't know if this can happend???)
      * in that case usage will be 0
      * we should clamp the value for safety, window can be weird
      * */
-    return usage < 0.0 ? 0.0 : (usage > 100.0) ? 100.0 : usage;
+    return cpuMetric;
 }
 
-double WindowMetricProvider::readRamUsage()
+RamMetric WindowMetricProvider::readRamMetric()
+{
+    MEMORYSTATUSEX memInfo;
+    memInfo.dwLength = sizeof(MEMORYSTATUSEX);
+    RamMetric ramMetric;
+
+    if (!GlobalMemoryStatusEx(&memInfo)) {
+        return RamMetric();
+    }
+    /*
+    memInfo.ullTotalPhys       // tổng RAM vật lý
+    memInfo.ullAvailPhys       // RAM vật lý còn trống
+    memInfo.ullTotalPageFile   // tổng page file (RAM + swap)
+    memInfo.ullAvailPageFile   // page file còn trống
+    memInfo.dwMemoryLoad       // % RAM đang dùng (0-100), Windows tính sẵn
+    đơn vị trả ra ở đây sẽ là byte
+    */
+
+    // all value will be return as bytes
+    ramMetric.totalRam = static_cast<double>(memInfo.ullTotalPhys);
+    ramMetric.availableRam = static_cast<double>(memInfo.ullAvailPhys);
+    ramMetric.usePercentage = static_cast<double>(memInfo.dwMemoryLoad);
+    return ramMetric;
+}
+
+
+double WindowMetricProvider::getTotalRam()
 {
     MEMORYSTATUSEX memInfo;
     memInfo.dwLength = sizeof(MEMORYSTATUSEX);
@@ -76,7 +103,8 @@ double WindowMetricProvider::readRamUsage()
         return -1;
     }
 
-    return static_cast<double>(memInfo.dwLength);
+    // here we return ram as bytes
+    return static_cast<double>(memInfo.ullTotalPhys);
 }
 
 uint64_t WindowMetricProvider::FileTimeToInt64(const FILETIME &ft)
