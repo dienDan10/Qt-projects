@@ -31,7 +31,7 @@ Rectangle {
     property alias chartLabelBL: resouceChart.chartLabelBL
     property alias chartLabelBR: resouceChart.chartLabelBR
 
-    implicitHeight: 320
+    implicitHeight: 400
 
     ColumnLayout {
         anchors.fill: parent

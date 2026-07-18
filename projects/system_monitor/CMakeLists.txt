@@ -20,6 +20,7 @@ qt_add_executable(appsystem_monitor
     src/metrics/metricproviderfactory.h
     src/metrics/metricworker.h src/metrics/metricworker.cpp
     src/controller/monitorcontroller.h src/controller/monitorcontroller.cpp
+    src/metrics/metric.h
 )
 
 set_source_files_properties(qml/theme/Theme.qml
@@ -38,8 +39,7 @@ qt_add_qml_module(appsystem_monitor
         qml/ui/MetricCard.qml
         qml/ui/ResourceChart.qml
         qml/components/PrimaryBackground.qml
-        QML_FILES qml/ui/BtnToggleTheme.qml
-        SOURCES src/metrics/metric.h
+        qml/ui/BtnToggleTheme.qml
 )
 
 if(WIN32)

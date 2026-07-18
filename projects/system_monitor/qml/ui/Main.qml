@@ -73,8 +73,8 @@ ApplicationWindow {
                 id: cpuMetricCard
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.preferredHeight: 500
-                Layout.maximumHeight: 500
+                Layout.preferredHeight: 400
+                Layout.maximumHeight: 400
 
                 title: "CPU"
                 subtitle: `${Monitor.currentCpu}%`
@@ -93,8 +93,8 @@ ApplicationWindow {
                 id: ramMetricCard
                 Layout.fillWidth: true
                 Layout.fillHeight: true
-                Layout.preferredHeight: 500
-                Layout.maximumHeight: 500
+                Layout.preferredHeight: 400
+                Layout.maximumHeight: 400
 
                 title: "Memory"
                 subtitle: `${Monitor.currentRam.toFixed(1)} GB`

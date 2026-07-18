@@ -15,11 +15,13 @@ MonitorController::MonitorController(QObject *parent)
 
 MonitorController::~MonitorController()
 {
-    m_workerThread->quit();
-    if (! m_workerThread->wait(1000)) {
-        // incase thread cannot stop due to the worker is still running
-        // that means the worker logic have problem
-        qCritical() << "Metric workder thread failed to quit on time.";
+    if (m_workerThread) {
+        m_workerThread->quit();
+        if (! m_workerThread->wait(1000)) {
+            // incase thread cannot stop due to the worker is still running
+            // that means the worker logic have problem
+            qCritical() << "Metric workder thread failed to quit on time.";
+        }
     }
 }
 
@@ -27,6 +29,7 @@ void MonitorController::initialize()
 {
     m_metricWorker = new MetricWorker();
     m_workerThread = new QThread(this);
+    m_metricWorker->moveToThread(m_workerThread);
 
     connect(m_workerThread, &QThread::started, m_metricWorker, &MetricWorker::initialize);
     connect(m_workerThread, &QThread::finished, m_metricWorker, &QObject::deleteLater);
