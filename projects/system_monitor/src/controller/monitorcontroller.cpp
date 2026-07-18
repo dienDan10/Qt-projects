@@ -36,6 +36,8 @@ void MonitorController::initialize()
     });
     connect(m_metricWorker, &MetricWorker::cpuMetricReceived, this, &MonitorController::onCpuMetricReceived);
     connect(m_metricWorker, &MetricWorker::ramMetricReceived, this, &MonitorController::onRamMetricReceived);
+    connect(this, &MonitorController::monitorPaused, m_metricWorker, &MetricWorker::pauseTimer);
+    connect(this, &MonitorController::monitorResume, m_metricWorker, &MetricWorker::resumeTimer);
 
     // setup points
     for (int i = 0; i < 60; i++) {
@@ -61,12 +63,18 @@ void MonitorController::setRamSeries(QXYSeries *ramSeries)
 
 void MonitorController::pauseMonitor()
 {
-
+    if (m_isPaused) return;
+    m_isPaused = true;
+    emit monitorPaused();
+    emit isPausedChanged();
 }
 
 void MonitorController::resumeMonitor()
 {
-
+    if (!m_isPaused) return;
+    m_isPaused = false;
+    emit monitorResume();
+    emit isPausedChanged();
 }
 
 int MonitorController::currentCpu()
@@ -82,6 +90,11 @@ double MonitorController::currentRam()
 double MonitorController::deviceTotalRam()
 {
     return m_deviceTotalRam;
+}
+
+bool MonitorController::isPaused()
+{
+    return m_isPaused;
 }
 
 void MonitorController::onCpuMetricReceived(CpuMetric metric)

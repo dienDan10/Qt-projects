@@ -23,6 +23,7 @@ class MonitorController : public QObject
     Q_PROPERTY(int currentCpu READ currentCpu NOTIFY currentCpuChanged FINAL)
     Q_PROPERTY(double currentRam READ currentRam NOTIFY currentRamChanged FINAL)
     Q_PROPERTY(double deviceTotalRam READ deviceTotalRam NOTIFY deviceTotalRamChanged FINAL)
+    Q_PROPERTY(bool isPaused READ isPaused NOTIFY isPausedChanged FINAL)
 public:
     explicit MonitorController(QObject *parent = nullptr);
     ~MonitorController();
@@ -35,6 +36,7 @@ public:
     int currentCpu();
     double currentRam();
     double deviceTotalRam();
+    bool isPaused();
     void initialize();
 
 signals:
@@ -42,22 +44,18 @@ signals:
     void currentCpuChanged();
     void currentRamChanged();
     void deviceTotalRamChanged();
+    void isPausedChanged();
+    void monitorPaused();
+    void monitorResume();
 
 private:
     void onCpuMetricReceived(CpuMetric cpuMetric);
     void onRamMetricReceived(RamMetric ramMetric);
 
 private:
-    enum class ControllerState {
-        INITIALIZING = 0,
-        RUNNING,
-        PAUSED
-    };
-
-private:
     MetricWorker* m_metricWorker = nullptr;
     QThread* m_workerThread = nullptr;
-    ControllerState m_monitorState = ControllerState::INITIALIZING;
+    bool m_isPaused = false;
 
     double m_currentCpu = 0;
     double m_currentRam = 0;

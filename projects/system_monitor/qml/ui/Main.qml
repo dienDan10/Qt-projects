@@ -13,7 +13,7 @@ ApplicationWindow {
     title: "System Monitor"
     color: Theme.current.surface
 
-    property bool paused: false
+    property bool paused: Monitor.isPaused
 
     PrimaryBackground {}
 
@@ -28,8 +28,13 @@ ApplicationWindow {
 
             paused: root.paused
 
-            onPauseClicked: root.paused = true
-            onResumeClicked: root.paused = false
+            onPauseClicked: {
+                Monitor.pauseMonitor();
+            }
+
+            onResumeClicked: {
+                Monitor.resumeMonitor();
+            }
         }
 
         //======================== LABEL AND TOGGLE DARK LIGHT THEME =================
